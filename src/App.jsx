@@ -1,18 +1,13 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import SignUp from "./pages/auth/signUp/SignUp";
-import SignIn from "./pages/auth/signIn/SignIn";
-
-import { Box, Stack } from "@mui/system";
+import "react-toastify/dist/ReactToastify.css";
+import AdminRoutes from "./AdminRoutes";
+import UserRoutes from "./UserRoutes";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/login" element={<SignIn />} />
-      </Routes>
-    </Router>
+    <>
+      <UserRoutes/>
+      {/* <AdminRoutes/> */}
+    </>
   );
 }
 

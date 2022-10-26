@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .header-icon {
+        @apply w-5 h-5 cursor-pointer
+    }
+
+    .nav-icon {
+        @apply w-5 h-5 cursor-pointer
+    }
+}
+
+:root {
+    --font: font-family: 'Poppins', sans-serif;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
