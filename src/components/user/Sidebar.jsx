@@ -5,7 +5,7 @@ import { FiUserPlus, FiLogOut } from "react-icons/fi";
 const Sidebar = () => {
   return (
     <div className="relative">
-      <div className="bg-slate-100 hidden md:flex flex-col w-100 h-screen p-3 ">
+      <div className=" hidden md:flex flex-col w-100 h-screen p-3 ">
         {/* profile */}
         <div className="bg-white pb-6 w-full justify-center items-center overflow-hidden md:max-w-sm rounded-lg shadow-sm mx-auto">
           <div className="relative h-40">

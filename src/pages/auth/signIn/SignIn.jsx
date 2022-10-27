@@ -108,7 +108,9 @@ function SignIn() {
                   <p className="flex items-center">
                     <input className="mr-2" type="checkbox" /> Remember me
                   </p>
-                  <Link to='/forgot_password'><p className="text-blue-600">Forgot password</p></Link>
+                  <Link to="/forgot_password">
+                    <p className="text-blue-600">Forgot password</p>
+                  </Link>
                 </div>
                 <div className="flex  justify-center py-5">
                   <div className="border shadow-lg hover:shadow-xl rounded-full cursor-pointer relative flex items-center">

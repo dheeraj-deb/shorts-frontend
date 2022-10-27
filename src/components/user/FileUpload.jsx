@@ -26,7 +26,7 @@ function FileUpload() {
         <label className="block">
           <span className="sr-only">Choose profile photo</span>
           <input
-            onChange={(e)=>console.log(e.target.value)}
+            onChange={(e)=>console.log(e.target.files)}
             type="file"
             className="block w-full text-sm text-slate-500
             file:rounded-full file:border-0
