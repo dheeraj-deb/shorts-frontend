@@ -1,44 +1,107 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { BsCloudUpload } from "react-icons/bs";
+import Spinner from "../Spinner";
+import { useDispatch, useSelector } from "react-redux";
+
+import { createPost, reset } from "../../services/reducres/post/postSlice";
+import { toast } from "react-toastify";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function FileUpload() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { post, isLoading, isSuccess, isError, message } = useSelector(
+    (state) => state.post
+  );
 
-    const [file, setfile] = useState('')
+  const [uploadData, setUploadData] = useState({
+    title: "",
+    description: "",
+    video: "",
+  });
 
+  function handleUpload(e) {
+    e.preventDefault();
+    // const form = new FormData(uploadData)
+    dispatch(createPost(uploadData));
+  }
 
-    function handleUpload(){
-
+  useEffect(() => {
+    if (isError) {
+      toast(message);
     }
 
+    if (isSuccess) {
+      toast("post uploaded successfully");
+      navigate("/");
+      dispatch(reset());
+    }
+
+  }, [post, isLoading, isSuccess, isError, message]);
+
+  if (isLoading) {
+    return (
+      <div className="w-100 h-[100vh] flex justify-center items-center">
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
-    <div className="w-100 h-[575px] border-dashed border-2 border-gray-300 flex flex-col items-center justify-center">
-      <BsCloudUpload fontSize={200} />
-      <form className="flex items-center space-x-6">
-        <div className="shrink-0">
-          <img
-            className="h-16 w-16 object-cover rounded-full"
-            src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1361&q=80"
-            alt="Current profile photo"
-          />
+    <div className="w-100 h-[100vh]">
+      <form className="flex flex-col justify-between mt-4">
+        <div className=" border-dashed border-2 border-gray-300 flex flex-col items-center py-4 rounded">
+          <BsCloudUpload fontSize={100} />
+          <div className="flex items-center space-x-6">
+            <label className="block">
+              <input
+                onChange={(e) =>
+                  setUploadData({
+                    ...uploadData,
+                    video: e.target.files[0],
+                  })
+                }
+                type="file"
+                className="block w-full text-sm text-slate-500 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50  file:text-violet-700 hover:file:bg-violet-100 file:mr-4 file:py-2 file:px-4"
+              />
+            </label>
+          </div>
         </div>
-        <label className="block">
-          <span className="sr-only">Choose profile photo</span>
+        <div className="py-4">
           <input
-            onChange={(e)=>console.log(e.target.files)}
-            type="file"
-            className="block w-full text-sm text-slate-500
-            file:rounded-full file:border-0
-            file:text-sm file:font-semibold
-            file:bg-violet-50 file:text-violet-700
-            hover:file:bg-violet-100
-            file:mr-4 file:py-2 file:px-4
-            "
+            onChange={(e) =>
+              setUploadData({
+                ...uploadData,
+                title: e.target.value,
+              })
+            }
+            className="border-2 border-gray-300 w-[100%] mb-4 outline-none px-2 py-1 font-poppins rounded"
+            type="text"
+            placeholder="Title"
           />
-        </label>
+          <textarea
+            onChange={(e) =>
+              setUploadData({
+                ...uploadData,
+                description: e.target.value,
+              })
+            }
+            placeholder="Description"
+            className="border-2 border-gray-300 w-[100%] outline-none px-2 font-poppins rounded"
+            cols="30"
+            rows="10"
+          ></textarea>
+          <div className="w-100 flex justify-end">
+            <button
+              onClick={handleUpload}
+              className="bg-[#5837D0] px-2 py-1 rounded-md font-poppins text-white"
+            >
+              Upload
+            </button>
+          </div>
+        </div>
       </form>
-      <button onClick={handleUpload} className="bg-violet-500 p-2 rounded-md">Upload</button>
     </div>
   );
 }

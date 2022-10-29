@@ -4,41 +4,41 @@ import { Link } from "react-router-dom";
 
 const MobileNav = () => {
   return (
-    <div className="fixed  bottom-0 w-[100%] md:hidden z-50">
-      <div className="w-[100%] h-[70px] bg-slate-400   flex justify-center items-center ">
+    <div className="fixed  bottom-0 w-[100%] bg-[#153462] md:hidden z-50">
+      <div className="w-[100%] h-[70px] flex justify-center items-center ">
         <ul className="flex w-[100%] justify-between">
           <li className="relative list-none w-[70px] h-[70px] z-1">
             <Link to='/' className="relative flex justify-center items-center flex-col w-[100%] h-[70px] transition duration-150 hover:-translate-y-4">
               <span className="relative block ">
-                <HomeIcon/>
+                <HomeIcon style={{ color: "#fff" }}/>
               </span>
             </Link>
           </li>
           <li className="relative list-none w-[70px] h-[70px] z-1">
             <Link to='/message' className="relative flex justify-center items-center flex-col w-[100%] h-[70px] transition duration-150 hover:-translate-y-4">
               <span className="relative block ">
-                <MessageIcon/>
+                <MessageIcon style={{ color: "#fff" }}/>
               </span>
             </Link>
           </li>
           <li className="relative list-none w-[70px] h-[70px] z-1">
             <Link to='/fileupload' className="relative flex justify-center items-center flex-col w-[100%] h-[70px] transition duration-150 hover:-translate-y-4">
               <span className="relative block ">
-                <PlusIcon/>
+                <PlusIcon style={{ color: "#fff" }}/>
               </span>
             </Link>
           </li>
           <li className="relative list-none w-[70px] h-[70px] z-1">
             <Link to='/live' className="relative flex justify-center items-center flex-col w-[100%] h-[70px] transition duration-150 hover:-translate-y-4">
               <span className="relative block ">
-                <CameraIcon/>
+                <CameraIcon style={{ color: "#fff" }}/>
               </span>
             </Link>
           </li>
           <li className="relative list-none w-[70px] h-[70px] z-1">
             <Link to='/myprofile' className="relative flex justify-center items-center flex-col w-[100%] h-[70px] transition duration-150 hover:-translate-y-4">
               <span className="relative block ">
-                <ProfileIcon/>
+                <ProfileIcon style={{ color: "#fff" }}/>
               </span>
             </Link>
           </li>

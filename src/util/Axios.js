@@ -1,14 +1,12 @@
 import axios from "axios";
-import { useSelector } from "react-redux";
 
 
-
-const token = localStorage.getItem("shortsAccess");
+const token = JSON.parse(localStorage.getItem("user"))?.accessToken
 
 const Axios = axios.create({
   baseURL: "http://localhost:4000/shorts/api",
   headers: {
-    Authorization: token ? token : null,
+    Authorization: token ? `Bearer ${token}` : null,
   },
 });
 

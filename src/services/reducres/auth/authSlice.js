@@ -23,8 +23,6 @@ export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
         return response.data;
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data) || error.message || error.toString();
-        console.log("errr", error)
-        console.log("mess", message)
         return thunkAPI.rejectWithValue(message.message)
     }
 });

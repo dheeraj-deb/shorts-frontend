@@ -1,8 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FiUserPlus, FiLogOut } from "react-icons/fi";
+import { useSelector } from "react-redux";
 
 const Sidebar = () => {
+
+  const navigate = useNavigate()
+  const {user} = useSelector((state) => state.auth)
+
+  console.log(user)
+
   return (
     <div className="relative">
       <div className=" hidden md:flex flex-col w-100 h-screen p-3 ">
@@ -44,7 +51,7 @@ const Sidebar = () => {
               </button>
             </div>
             <div className="flex items-center border rounded p-1">
-              <Link className="mr-2">LogOut</Link>
+              {user? (<Link className="mr-2">LogOut</Link>) : (<Link className="mr-2" onClick={()=>{navigate('/login')}}>Login</Link>)}
               <FiLogOut />
             </div>
           </div>
