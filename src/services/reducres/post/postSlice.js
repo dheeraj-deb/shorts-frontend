@@ -18,6 +18,7 @@ const config = {
 export const createPost = createAsyncThunk(
     "post/create",
     async (data, thunkAPI) => {
+        console.log(data)
         try {
             const response = await axiosReq.post("/upload", data, config);
             return response.data;
@@ -50,6 +51,7 @@ export const getPosts = createAsyncThunk(
         }
     }
 );
+
 
 export const likeAndDislike = createAsyncThunk(
     "post/likeAndDislike",
@@ -88,8 +90,9 @@ const postSlice = createSlice({
                 state.isSuccess = false;
             })
             .addCase(createPost.fulfilled, (state, { payload }) => {
+                console.log(payload)
                 state.isLoading = false;
-                state.post = [...state.post, payload.post];
+                state.post = [...state.post, payload.response];
                 state.isSuccess = true;
             })
             .addCase(createPost.rejected, (state, action) => {

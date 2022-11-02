@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
+
 import { SlOptionsVertical } from "react-icons/sl";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FaRegComment } from "react-icons/fa";
@@ -10,8 +12,21 @@ import Spinner from "../Spinner";
 import { likeAndDislike } from "../../services/reducres/post/postSlice";
 import { toast } from "react-toastify";
 
+import UseIntersectionObserver from "../../IntersectionObserver";
+import { useRef } from "react";
+
 function Post({ post, isLoading, userId }) {
   const [isCommentOn, setIsCommentOn] = useState(false);
+  const videoRef = useRef(null);
+  const [ref, entry] = UseIntersectionObserver({ threshold: 0.8 });
+
+  if (videoRef.current) {
+    if (entry.isIntersecting) {
+      videoRef.current.play();
+    } else {
+      videoRef.current.pause();
+    }
+  }
 
   const dispatch = useDispatch();
 
@@ -49,14 +64,14 @@ function Post({ post, isLoading, userId }) {
         </div>
         <SlOptionsVertical />
       </section>
-      <section className="h-[200px] md:h-[300px]">
+      <section className="h-[200px] md:h-[300px]" ref={ref}>
         <video
           className="w-[100%] h-[100%] object-cover "
-          src={post.postUri}
+          src={`http://localhost:4000/shorts/api/stream/${post._id}`}
           type="video/mp4"
           loop={true}
-          controls={true}
-          autoPlay={true}
+          ref={videoRef}
+          onLoad
         />
       </section>
       <section className="w-100  px-2">
@@ -89,9 +104,10 @@ function Post({ post, isLoading, userId }) {
         <div className="w-100 px-2">
           <p className="text-sm text-left">{post.likes.length}</p>
         </div>
-        <div className="flex">
-          <p className="text-xs font-thin mr-2"> Date: Jun 19</p>
-          <p className="text-xs font-thin">Time: 7:14</p>
+        <div>
+          <p className="text-xs font-thin mr-2">
+            {moment(post.time).format("llll")}
+          </p>
         </div>
       </section>
       {isCommentOn ? (

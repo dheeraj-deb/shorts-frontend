@@ -10,7 +10,7 @@ function Layout({ children }) {
         <div className="w-72 hidden md:block">
           <Sidebar />
         </div>
-        <div className=" w-full md:w-3/5 mb-20">{children}</div>
+        <div className=" w-full md:w-1/2 mb-20">{children}</div>
         <div className="hidden w-72 md:flex">
           <Rightbar />
         </div>

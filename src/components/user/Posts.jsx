@@ -27,7 +27,6 @@ function Posts() {
     }
   }, [isLoading, isSuccess, message, isError]);
 
-  console.log(post);
 
   return (
     <>

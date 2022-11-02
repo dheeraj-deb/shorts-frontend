@@ -1,11 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import SignIn from "./pages/auth/admin/SignIn";
-import Header from "./components/admin/header/Header";
-import Navbar from "./components/admin/navbar/Navbar";
-import LeftPart from "./components/admin/leftPart/LeftPart";
-import RightPart from "./components/admin/rightPart/RightPart";
-import Table from "./components/admin/table/Table";
+import SignIn from "../pages/auth/admin/SignIn";
+import Header from "../components/admin/header/Header";
+import Navbar from "../components/admin/navbar/Navbar";
+import LeftPart from "../components/admin/leftPart/LeftPart";
+import RightPart from "../components/admin/rightPart/RightPart";
+import Table from "../components/admin/table/Table";
 function AdminRoutes() {
   return (
     <>

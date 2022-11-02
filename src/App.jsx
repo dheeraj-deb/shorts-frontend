@@ -1,12 +1,12 @@
 import "react-toastify/dist/ReactToastify.css";
-import AdminRoutes from "./AdminRoutes";
-import UserRoutes from "./UserRoutes";
+import Admin from "./routes/Admin";
+import UserRoutes from "./routes/User";
 
 function App() {
   return (
     <>
-      <UserRoutes/>
-      {/* <AdminRoutes/> */}
+      <UserRoutes />
+      {/* <Admin/> */}
     </>
   );
 }

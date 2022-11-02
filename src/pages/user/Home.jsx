@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { Post } from "../../components/user/index";
 import Layout from "../../components/user/Layout";
 
-import Posts from '../../components/user/Posts'
+import Posts from "../../components/user/Posts";
 
 function Home() {
   return (

@@ -37,7 +37,6 @@ function FileUpload() {
       navigate("/");
       dispatch(reset());
     }
-
   }, [post, isLoading, isSuccess, isError, message]);
 
   if (isLoading) {
