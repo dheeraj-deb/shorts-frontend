@@ -1,11 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FiUserPlus, FiLogOut } from "react-icons/fi";
-import { useSelector } from "react-redux";
+import { RiUserUnfollowLine } from "react-icons/ri";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "../../util/Axios";
+import { useState } from "react";
+
+import {
+  followAndUnfollow,
+  logout,
+} from "../../services/reducres/auth/authSlice";
 
 const Sidebar = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
+
+  const [suggestion, setSuggestion] = useState([]);
+  const [following, setfollowing] = useState(false);
+
+  const userSuggestion = async () => {
+    const users = await axios.get("/user/suggest");
+
+    if (users.data.suggestion) {
+      setSuggestion(users.data.suggestion);
+    }
+  };
+
+  const handleFollow = async (userId) => {
+    dispatch(followAndUnfollow(userId));
+    setfollowing(!following);
+  };
+
+  const logOut = () => {
+    dispatch(logout());
+  };
+
+  useEffect(() => {
+    userSuggestion();
+  }, []);
 
   return (
     <>
@@ -59,7 +92,9 @@ const Sidebar = () => {
                 </div>
                 <div className="flex items-center border rounded p-1">
                   {user ? (
-                    <Link className="mr-2">LogOut</Link>
+                    <Link onClick={logOut} className="mr-2">
+                      LogOut
+                    </Link>
                   ) : (
                     <Link
                       className="mr-2"
@@ -83,30 +118,54 @@ const Sidebar = () => {
               {/* users */}
               <div className="w-100">
                 {/* ------------------- */}
-                <div className="flex items-center justify-between mb-3 p-2 bg-white">
-                  <div className="flex items-center">
-                    <div className="flex space-x-2">
-                      <div className="relative w-10 h-10">
-                        <img
-                          className="rounded-full border border-gray-100 shadow-sm"
-                          src="https://randomuser.me/api/portraits/women/81.jpg"
-                          alt="user image"
-                        />
-                        <div className="absolute top-0 right-0 h-3 w-3 my-1 border-2 border-white rounded-full bg-green-400 z-2"></div>
+                {suggestion.length ? (
+                  suggestion.map((user) => {
+                    return (
+                      <div className="flex items-center justify-between mb-3 p-2 bg-white">
+                        <div className="flex items-center">
+                          <div className="flex space-x-2">
+                            <div className="relative w-10 h-10">
+                              <img
+                                className="rounded-full border border-gray-100 shadow-sm"
+                                src="https://randomuser.me/api/portraits/women/81.jpg"
+                                alt="user image"
+                              />
+                              <div className="absolute top-0 right-0 h-3 w-3 my-1 border-2 border-white rounded-full bg-green-400 z-2"></div>
+                            </div>
+                          </div>
+                          <h4 className="text-sm font-poppins hover:cursor-pointer ml-2">
+                            <Link to={`user/${user._id}`}>{user.username}</Link>
+                          </h4>
+                        </div>
+                        <div>
+                          {following ? (
+                            <RiUserUnfollowLine
+                              fontSize={20}
+                              values={user._id}
+                              className="hover:cursor-pointer"
+                              color="blue"
+                              onClick={() => {
+                                handleFollow(user._id);
+                              }}
+                            />
+                          ) : (
+                            <FiUserPlus
+                              fontSize={20}
+                              values={user._id}
+                              className="hover:cursor-pointer"
+                              color="blue"
+                              onClick={() => {
+                                handleFollow(user._id);
+                              }}
+                            />
+                          )}
+                        </div>
                       </div>
-                    </div>
-                    <h4 className="text-sm font-poppins hover:cursor-pointer ml-2">
-                      Username
-                    </h4>
-                  </div>
-                  <div>
-                    <FiUserPlus
-                      fontSize={20}
-                      className="hover:cursor-pointer"
-                      color="blue"
-                    />
-                  </div>
-                </div>
+                    );
+                  })
+                ) : (
+                  <h3>No Suggestions</h3>
+                )}
               </div>
             </div>
           </div>

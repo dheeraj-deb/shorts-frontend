@@ -53,7 +53,7 @@ const Header = () => {
           </Link>
         ) : (
           <button className="px-2 bg-white rounded ml-6 font-poppins" onClick={()=>{
-            navigate('/login')
+            navigate("/login")
           }}>Login</button>
         )}
       </div>

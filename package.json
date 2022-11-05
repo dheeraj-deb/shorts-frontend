@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
@@ -21,21 +20,27 @@
     "framer-motion": "^7.6.1",
     "moment": "^2.29.4",
     "react": "^18.2.0",
+    "react-comments-section": "^2.0.10",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.37.0",
     "react-icons": "^4.6.0",
+    "react-input-emoji": "^4.3.0",
     "react-redux": "^8.0.4",
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
     "react-toastify": "^9.0.8",
     "redux": "^4.2.0",
+    "socket.io-client": "^4.5.3",
+    "timeago.js": "^4.0.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint \"src/**/*.{js,jsx}\"",
+    "lint:fix": "eslint \"src/**/*.{js,jsx}\" --fix"
   },
   "eslintConfig": {
     "extends": [
@@ -57,6 +62,10 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.12",
+    "eslint": "^8.26.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-react": "^7.31.10",
     "postcss": "^8.4.18",
     "tailwindcss": "^3.1.8"
   }

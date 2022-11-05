@@ -14,11 +14,30 @@ import { toast } from "react-toastify";
 
 import UseIntersectionObserver from "../../IntersectionObserver";
 import { useRef } from "react";
+import Comment from "./Comment";
+import DropDown from "../DropDown";
+import axios from "../../util/Axios";
+import { fetcUserData } from "../../services/reducres/auth/authSlice";
 
 function Post({ post, isLoading, userId }) {
+  const dispatch = useDispatch();
   const [isCommentOn, setIsCommentOn] = useState(false);
   const videoRef = useRef(null);
   const [ref, entry] = UseIntersectionObserver({ threshold: 0.8 });
+
+  const options = [
+    {
+      name: "Report",
+      fn: () => {
+        console.log("here");
+      },
+      id: 0,
+    },
+  ];
+
+  useEffect(() => {
+    dispatch(fetcUserData(userId));
+  }, []);
 
   if (videoRef.current) {
     if (entry.isIntersecting) {
@@ -28,9 +47,8 @@ function Post({ post, isLoading, userId }) {
     }
   }
 
-  const dispatch = useDispatch();
-
   function handleLike() {
+    console.log("here");
     if (userId) {
       dispatch(likeAndDislike({ postId: post._id, userId }));
     } else {
@@ -62,7 +80,7 @@ function Post({ post, isLoading, userId }) {
           </div>
           <h4>{post?.user ? post.user[0].username : ""}</h4>
         </div>
-        <SlOptionsVertical />
+        <DropDown options={options} />
       </section>
       <section className="h-[200px] md:h-[300px]" ref={ref}>
         <video
@@ -110,20 +128,7 @@ function Post({ post, isLoading, userId }) {
           </p>
         </div>
       </section>
-      {isCommentOn ? (
-        <section className="w-100 p-4">
-          <div className="flex justify-between items-center">
-            <input
-              type="text"
-              className=" w-100 border outline-none mr-2 px-2 py-1 w-[100%]"
-              placeholder="Post comments......."
-            />
-            <button className="border bg-blue-600 rounded-sm px-2 py-1">
-              post
-            </button>
-          </div>
-        </section>
-      ) : null}
+      {isCommentOn ? <Comment postId={post._id} /> : null}
     </div>
   );
 }
