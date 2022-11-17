@@ -11,12 +11,12 @@ import {
   PlusIcon,
   ProfileIcon,
   MessageIcon,
-} from "../Icons";
+} from "../../Icons";
 
 const Header = () => {
 
   const navigate = useNavigate()
-  const { user } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.user);
 
   return (
     <div className="w-[100%] p-4 bg-[#153462] flex items-center justify-around fixed z-50">

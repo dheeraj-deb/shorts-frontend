@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { BsCloudUpload } from "react-icons/bs";
-import Spinner from "../Spinner";
+import Spinner from "../../Spinner";
 import { useDispatch, useSelector } from "react-redux";
 
-import { createPost, reset } from "../../services/reducres/post/postSlice";
+import { createPost, reset } from "../../../services/reducres/post/postSlice";
 import { toast } from "react-toastify";
 import { Navigate, useNavigate } from "react-router-dom";
 

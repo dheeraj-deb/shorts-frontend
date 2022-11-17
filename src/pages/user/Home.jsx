@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import {fetcUserData} from "../../services/reducres/auth/authSlice"
+import {fetcUserData} from "../../services/reducres/user/UserSlice"
 import { Posts, Sidebar, Layout } from "../../components/user/index";
 
 function Home() {

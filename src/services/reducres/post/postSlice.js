@@ -81,7 +81,7 @@ export const likeAndDislike = createAsyncThunk(
                 (error.response && error.response.data && error.response.data) ||
                 error.message ||
                 error.toString();
-      return thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue(message);
     }
   }
 );

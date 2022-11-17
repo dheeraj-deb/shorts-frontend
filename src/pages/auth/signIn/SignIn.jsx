@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+
 import { FcGoogle } from "react-icons/fc";
 import { BsFacebook } from "react-icons/bs";
 import { useForm } from "react-hook-form";
-import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { login, reset } from "../../../services/reducres/auth/authSlice";
-import Spinner from "../../../components/Spinner";
+
+import { login, reset } from "../../../services/reducres/user/UserSlice";
+
 import videoComponent from "../../../assets/overlayvdo.mp4";
+import Spinner from "../../../components/Spinner";
 
 function SignIn() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { user, isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.auth
+    (state) => state.user
   );
 
   useEffect(() => {

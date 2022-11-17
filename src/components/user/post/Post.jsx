@@ -1,25 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 
-import { SlOptionsVertical } from "react-icons/sl";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FaRegComment } from "react-icons/fa";
 import { FiShare2 } from "react-icons/fi";
 import { AiFillHeart } from "react-icons/ai";
-import Spinner from "../Spinner";
-
-import { likeAndDislike } from "../../services/reducres/post/postSlice";
+import Spinner from "../../Spinner";
 import { toast } from "react-toastify";
 
-import UseIntersectionObserver from "../../IntersectionObserver";
-import { useRef } from "react";
-import Comment from "./Comment";
-import DropDown from "../DropDown";
-import axios from "../../util/Axios";
-import { fetcUserData } from "../../services/reducres/auth/authSlice";
+import UseIntersectionObserver from "../../../IntersectionObserver";
+import { likeAndDislike, deletePost } from "../../../services/reducres/post/postSlice";
 
-function Post({ post, isLoading, userId }) {
+import Comment from "../comment/Comment";
+import DropDown from "../../DropDown";
+
+function Post({ post, isLoading, user }) {
   const dispatch = useDispatch();
   const [isCommentOn, setIsCommentOn] = useState(false);
   const videoRef = useRef(null);
@@ -35,10 +31,6 @@ function Post({ post, isLoading, userId }) {
     },
   ];
 
-  useEffect(() => {
-    dispatch(fetcUserData(userId));
-  }, []);
-
   if (videoRef.current) {
     if (entry.isIntersecting) {
       videoRef.current.play();
@@ -48,9 +40,8 @@ function Post({ post, isLoading, userId }) {
   }
 
   function handleLike() {
-    console.log("here");
-    if (userId) {
-      dispatch(likeAndDislike({ postId: post._id, userId }));
+    if (user) {
+      dispatch(likeAndDislike({ postId: post._id, userId: user._id }));
     } else {
       toast("Please Login!");
     }
@@ -67,9 +58,9 @@ function Post({ post, isLoading, userId }) {
   // console.log(post)
 
   return (
-    <div className="w-100 h[100vh] mb-4 border">
+    <div className="w-100 h[100vh] mb-4 border  bg-white">
       {/* post header */}
-      <section className="w-100 bg-gray-200 flex items-center justify-between p-2">
+      <section className="w-100 flex items-center justify-between p-2">
         <div className="flex items-center">
           <div className="w-[45px] h-[45px] mr-2">
             <img
@@ -99,7 +90,7 @@ function Post({ post, isLoading, userId }) {
       <section className="w-100  p-2 py-3">
         <div className="flex items-center justify-between ">
           <div className="flex items-center">
-            {post.likes.includes(userId) ? (
+            {post.likes.includes(user?._id) ? (
               <AiFillHeart
                 fontSize={22}
                 onClick={handleLike}
@@ -128,7 +119,7 @@ function Post({ post, isLoading, userId }) {
           </p>
         </div>
       </section>
-      {isCommentOn ? <Comment postId={post._id} /> : null}
+      {isCommentOn ? <Comment postId={post._id} user={user} /> : null}
     </div>
   );
 }

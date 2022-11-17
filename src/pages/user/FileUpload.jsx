@@ -1,6 +1,5 @@
 import React from "react";
-import { Upload } from "../../components/user/index";
-import Layout from "../../components/user/Layout";
+import { Upload, Layout} from "../../components/user/index";
 
 function FileUpload() {
   return <Layout children={<Upload />} />;

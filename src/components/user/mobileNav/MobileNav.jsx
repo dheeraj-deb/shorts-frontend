@@ -1,5 +1,5 @@
 import React from "react";
-import {HomeIcon, MessageIcon, CameraIcon, SettingsIcon, PlusIcon, ProfileIcon} from "../Icons"
+import {HomeIcon, MessageIcon, CameraIcon, SettingsIcon, PlusIcon, ProfileIcon} from "../../Icons"
 import { Link } from "react-router-dom";
 
 const MobileNav = () => {

@@ -9,7 +9,7 @@ import Spinner from "../../../components/Spinner";
 import {
   adminLogin,
   reset,
-} from "../../../services/reducres/auth/adminAuthSlice";
+} from "../../../services/reducres/admin/adminAuthSlice";
 
 function SignIn() {
   const {

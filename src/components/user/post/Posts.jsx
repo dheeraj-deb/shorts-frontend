@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { reset, getPosts } from "../../services/reducres/post/postSlice";
+import { reset, getPosts } from "../../../services/reducres/post/postSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Post from "./Post";
@@ -10,7 +10,7 @@ function Posts() {
   const { post, isLoading, isSuccess, message, isError } = useSelector(
     (state) => state.post
   );
-  const { user } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.user);
 
   useEffect(() => {
     dispatch(getPosts());
@@ -36,7 +36,7 @@ function Posts() {
           <Post
             post={val}
             isLoading={isLoading}
-            userId={user?._id}
+            user={user}
             key={val._id}
           />
         );

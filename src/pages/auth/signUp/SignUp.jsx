@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import AxiosReq from "../../../util/Axios";
+
+import { useForm } from "react-hook-form";
+
 import { toast } from "react-toastify";
 import videoComponent from "../../../assets/overlayvdo.mp4";
-import Spinner from "../../../components/Spinner";
-import { reset } from "../../../services/reducres/auth/authSlice";
-import AxiosReq from "../../../util/Axios";
 
 function SignUp() {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ function SignUp() {
     formState: { errors },
   } = useForm();
 
-  const { user, isSuccess } = useSelector((state) => state.auth);
+  const { user, isSuccess } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (isSuccess || user) {
