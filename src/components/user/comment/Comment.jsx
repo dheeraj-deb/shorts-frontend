@@ -19,8 +19,9 @@ function Comment({ postId, user }) {
     return min + Math.random() * (max - min);
   };
 
+
   const [comment, addComment] = useState({
-    commentId: generateRandomBytes(),
+    commentId: "",
     commentedBy: user ? user._id : null,
     username: user ? user.username : null,
     postId,
@@ -35,20 +36,24 @@ function Comment({ postId, user }) {
     replies: [],
   })
 
-  const getComments = async () => {
+  const getComments = () => {
     dispatch(getComment(postId))
   };
 
-  const handleComment = async () => {
+
+  const handleComment = () => {
+    addComment((prev) => {
+      return { ...prev, commentId: generateRandomBytes() }
+    })
     dispatch(postComments({ postId, comment }))
   };
 
-  const handleDelete = async (commentId) => {
+  const handleDelete = (commentId) => {
     dispatch(deleteComments(commentId))
   }
 
 
-  const handleLike = async (commentId) => {
+  const handleLike = (commentId) => {
     if (user) {
       dispatch(likeAndDislike(commentId))
     } else {
@@ -74,61 +79,63 @@ function Comment({ postId, user }) {
   return (
     <div className="w-100">
       {comments?.map((comment) => {
-        return (
-          <div key={comment?.commentId} className="py-2 px-5">
-            <div className="mb-4">
-              <div className="flex justify-between">
-                <div className="flex">
-                  {/* profile-pic */}
-                  <div className="mr-2 flex items-center">
-                    <img
-                      className="h-[25px] w-[25px] object-cover rounded-full"
-                      src="https://media.istockphoto.com/id/517188688/photo/mountain-landscape.jpg?s=612x612&w=0&k=20&c=A63koPKaCyIwQWOTFBRWXj_PwCrR4cEoOw2S9Q7yVl8="
-                      alt="profile"
-                    />
+        if (comment.postId === postId) {
+          return (
+            <div key={comment?.commentId} className="py-2 px-5">
+              <div className="mb-4">
+                <div className="flex justify-between">
+                  <div className="flex">
+                    {/* profile-pic */}
+                    <div className="mr-2 flex items-center">
+                      <img
+                        className="h-[25px] w-[25px] object-cover rounded-full"
+                        src="https://media.istockphoto.com/id/517188688/photo/mountain-landscape.jpg?s=612x612&w=0&k=20&c=A63koPKaCyIwQWOTFBRWXj_PwCrR4cEoOw2S9Q7yVl8="
+                        alt="profile"
+                      />
+                    </div>
+                    <div className="flex items-center">
+                      <p className="font-poppins font-semibold text-xs mr-2">
+                        {comment?.username}
+                      </p>
+                      <p className="font-poppins font-medium text-xs text-ellipsis	">
+                        {comment?.text}
+                      </p>
+                    </div>
                   </div>
-                  <div className="flex items-center">
-                    <p className="font-poppins font-semibold text-xs mr-2">
-                      {comment?.username}
-                    </p>
-                    <p className="font-poppins font-medium text-xs text-ellipsis	">
-                      {comment?.text}
-                    </p>
+                  <div>
+                    {
+                      comment?.likes.includes(user?._id) ? (<AiFillHeart className="text-red-600" onClick={() => {
+                        handleLike(comment.commentId)
+                      }} fontSize={14} />) : (<AiOutlineHeart onClick={() => {
+                        handleLike(comment.commentId)
+                      }} fontSize={14} />)
+                    }
                   </div>
                 </div>
-                <div>
+                <div className="flex items-center pl-10">
+                  <p className="font-poppins font-bold text-xs text-gray-500 mr-2">
+                    {comment?.likes.length} Likes
+                  </p>
                   {
-                    comment.likes.includes(user?._id) ? (<AiFillHeart onClick={() => {
-                      handleLike(comment.commentId)
-                    }} fontSize={14} />) : (<AiOutlineHeart onClick={() => {
-                      handleLike(comment.commentId)
-                    }} fontSize={14} />)
+                    comment?.commentedBy == user?._id ? (
+                      <button
+                        className="font-poppins font-bold text-xs text-gray-500"
+                        onClick={() => handleDelete(comment.commentId)}>
+                        Delete
+                      </button>
+                    ) : (null)
                   }
                 </div>
               </div>
-              <div className="flex items-center pl-10">
-                <p className="font-poppins font-bold text-xs text-gray-500 mr-2">
-                  {comment?.likes.length} Likes
-                </p>
-                {
-                  comment?.commentedBy == user?._id ? (
-                    <button
-                      className="font-poppins font-bold text-xs text-gray-500"
-                      onClick={() => handleDelete(comment.commentId)}>
-                      Delete
-                    </button>
-                  ) : (null)
-                }
-              </div>
             </div>
-          </div>
-        );
+          );
+        }
       })}
 
       <div className=" py-3 px-5">
         <div className="flex">
           <div>{/* <InputEmoji textInputRef={comments} /> */}</div>
-          <Input value={comment?.text} onChange={(e) => {
+          <Input value={comment.text} onChange={(e) => {
             addComment((prev) => {
               return {
                 ...prev,

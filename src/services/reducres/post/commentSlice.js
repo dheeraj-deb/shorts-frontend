@@ -16,9 +16,9 @@ export const getComment = createAsyncThunk("comment/get", async (postId, thunkAP
     return response.data;
   } catch (error) {
     const message =
-            (error.response && error.response.data && error.response.data) ||
-            error.message ||
-            error.toString();
+      (error.response && error.response.data && error.response.data) ||
+      error.message ||
+      error.toString();
     return thunkAPI.rejectWithValue(message);
   }
 })
@@ -30,9 +30,9 @@ export const postComments = createAsyncThunk("comment/post", async ({ postId, co
     return response.data;
   } catch (error) {
     const message =
-            (error.response && error.response.data && error.response.data) ||
-            error.message ||
-            error.toString();
+      (error.response && error.response.data && error.response.data) ||
+      error.message ||
+      error.toString();
     return thunkAPI.rejectWithValue(message);
   }
 })
@@ -44,9 +44,9 @@ export const deleteComments = createAsyncThunk("comment/delete", async (commentI
     return response.data;
   } catch (error) {
     const message =
-            (error.response && error.response.data && error.response.data) ||
-            error.message ||
-            error.toString();
+      (error.response && error.response.data && error.response.data) ||
+      error.message ||
+      error.toString();
     return thunkAPI.rejectWithValue(message);
   }
 })
@@ -60,9 +60,9 @@ export const likeAndDislike = createAsyncThunk(
       return response.data;
     } catch (error) {
       const message =
-                (error.response && error.response.data && error.response.data) ||
-                error.message ||
-                error.toString();
+        (error.response && error.response.data && error.response.data) ||
+        error.message ||
+        error.toString();
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -74,9 +74,9 @@ const commentSlice = createSlice({
   reducers: {
     reset: (state) => {
       (state.isSuccess = false),
-      (state.isLoading = false),
-      (state.isError = false),
-      (state.message = null);
+        (state.isLoading = false),
+        (state.isError = false),
+        (state.message = null);
     },
   },
   extraReducers: (builder) => {
@@ -96,7 +96,11 @@ const commentSlice = createSlice({
         state.message = action.payload;
       })
       .addCase(postComments.fulfilled, (state, { payload }) => {
-        state.comments = [...state.comments, payload.comment]
+        if (state.comments) {
+          state.comments = [...state.comments, payload.comment]
+        } else {
+          state.comments = [payload.comment]
+        }
       })
       .addCase(postComments.rejected, (state, action) => {
         state.isError = true;
@@ -122,9 +126,10 @@ const commentSlice = createSlice({
         state.message = action.payload;
       })
       .addCase(deleteComments.fulfilled, (state, { payload }) => {
-        state.comments = state.comments.filter((comment) => {
+        console.log(payload.response);
+        state.comments = [...state.comments.filter((comment) => {
           return comment.commentId !== payload.response.commentId
-        })
+        })]
       })
   },
 });

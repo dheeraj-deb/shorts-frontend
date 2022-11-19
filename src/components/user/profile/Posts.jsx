@@ -7,23 +7,22 @@ import { Spinner } from "../index"
 function Posts({ user }) {
     const [Loading, setIsLoading] = useState(true)
     const [videos, setVideos] = useState([]);
-    const [showVideo, setShowVideo] = useState({ status: false, video: {} })
+    const [showVideo, setShowVideo] = useState({ status: false, videoId: "" })
 
     const fetchUserPosts = async () => {
         const { data } = await axios.get(`/user/posts/${user._id}`);
         setVideos(data.posts);
     };
-    
+
     useEffect(() => {
         fetchUserPosts();
         setIsLoading(false)
-    }, []);
-    
-    const handleDetailView = (video) => {
-        setShowVideo({ ...showVideo, status: true, video })
-        
+    }, [showVideo.status]);
+
+    const handleDetailView = (videoId) => {
+        setShowVideo({ ...showVideo, status: true, videoId })
     }
-    console.log(videos);
+
     if (Loading) {
         return <Spinner />
     }
@@ -34,10 +33,10 @@ function Posts({ user }) {
                 !showVideo.status ? (
                     <div className='grid overflow-hidden grid-cols-2 md:grid-cols-3 gap-2 w-4/4'>
                         {
-                            videos.map((video) => {
+                            videos?.map((video) => {
                                 return (
                                     <div key={video.post._id} className="relative">
-                                        <video src={`http://localhost:4000/shorts/api/stream/${video.post._id}`} onClick={() => handleDetailView(video)} />
+                                        <video src={`http://localhost:4000/shorts/api/stream/${video.post._id}`} onClick={() => handleDetailView(video.post._id)} />
                                         <p className='font-poppins absolute bottom-1 right-1 text-gray-300 font-medium text-xs'>{video.post.likes.length} likes</p>
                                     </div>
                                 )
@@ -45,7 +44,7 @@ function Posts({ user }) {
                         }
                     </div>
                 ) : (
-                    <Post post={showVideo.video} user={user} setShowVideo={setShowVideo} />)
+                    <Post postId={showVideo.videoId} user={user} setShowVideo={setShowVideo} />)
             }
         </div>
     )

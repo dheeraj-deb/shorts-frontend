@@ -41,14 +41,14 @@ const Header = () => {
         <Link to="/message">
           <MessageIcon style={{ color: "#fff" }} className="ml-6 " />
         </Link>
-        <Link to="/fileupload">
+        <Link to="/file-upload">
           <PlusIcon style={{ color: "#fff" }} className="ml-6" />
         </Link>
         <Link to="/settings">
           <SettingsIcon style={{ color: "#fff" }} className="ml-6 " />
         </Link>
         {user ? (
-          <Link to="myprofile">
+          <Link to="my-profile">
             <ProfileIcon style={{ color: "#fff" }} className="ml-6 " />
           </Link>
         ) : (

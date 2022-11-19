@@ -23,13 +23,32 @@ function Post({ post, isLoading, user }) {
 
   const options = [
     {
+      name: "Delete",
+      fn: (postId) => {
+        dispatch(deletePost(postId))
+        setShowVideo(false)
+      },
+      id: 0,
+    }
+
+  ];
+
+  const options1 = [
+    {
+      name: "Save",
+      fn: () => {
+        console.log("here");
+      },
+      id: 0,
+    },
+    {
       name: "Report",
       fn: () => {
         console.log("here");
       },
       id: 0,
     },
-  ];
+  ]
 
   if (videoRef.current) {
     if (entry.isIntersecting) {
@@ -71,7 +90,7 @@ function Post({ post, isLoading, user }) {
           </div>
           <h4>{post?.user ? post.user[0].username : ""}</h4>
         </div>
-        <DropDown options={options} />
+        {user ? <DropDown options={(post.postedBy == user._id) ? options : options1} postId={post._id} /> : null}
       </section>
       <section className="h-[200px] md:h-[300px]" ref={ref}>
         <video

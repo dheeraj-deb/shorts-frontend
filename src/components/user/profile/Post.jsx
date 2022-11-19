@@ -1,16 +1,55 @@
 import moment from 'moment';
-import React from 'react'
+import React, { useState } from 'react'
+import { useDispatch } from "react-redux"
+import { useEffect } from 'react';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { IoMdClose } from "react-icons/io"
 import { FaRegComment } from 'react-icons/fa';
 import { FiShare2 } from 'react-icons/fi';
 import DropDown from '../../DropDown'
+import Spinner from '../../Spinner';
 import Comment from '../comment/Comment'
+import PostEdit from './PostEdit';
 
-function Post({ post, user, setShowVideo }) {
+import { findPostById } from "../../../services/api/UserRequestes"
 
-    console.log(post);
+import { deletePost } from "../../../services/reducres/post/postSlice"
+
+function Post({ postId, user, setShowVideo }) {
+    const dispatch = useDispatch()
+    const [isEdit, selectIsEdit] = useState(false)
+    const [edit, setEdit] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
+    const [post, setPost] = useState({})
+
 
     const options = [
+        {
+            name: "Edit",
+            fn: () => {
+                selectIsEdit(true)
+            },
+            id: 0,
+        },
+        {
+            name: "Delete",
+            fn: (postId) => {
+                dispatch(deletePost(postId))
+                setShowVideo(false)
+            },
+            id: 0,
+        }
+
+    ];
+
+    const options1 = [
+        {
+            name: "Save",
+            fn: () => {
+                console.log("here");
+            },
+            id: 0,
+        },
         {
             name: "Report",
             fn: () => {
@@ -18,12 +57,28 @@ function Post({ post, user, setShowVideo }) {
             },
             id: 0,
         },
-    ];
+    ]
+
+    const fetchPost = async () => {
+        const { data } = await findPostById(postId)
+        setPost(data)
+    }
+
+    useEffect(() => {
+        fetchPost()
+        setIsLoading(false)
+    }, [edit])
 
 
     const handleLike = () => { }
 
     const setIsCommentOn = () => { }
+
+
+
+    if (isLoading) {
+        return <Spinner />
+    }
 
     return (
         <div className='grid overflow-hidden grid-cols-2 gap-2 w-4/4 border'>
@@ -37,27 +92,28 @@ function Post({ post, user, setShowVideo }) {
                                 alt=""
                             />
                         </div>
-                        <h4>{post?.username ? post.username : ""}</h4>
+                        <h4>{post?.user?.username}</h4>
                     </div>
-                    <DropDown options={options} />
+                    {user ? <DropDown options={(post.postedBy == user?._id) ? options : options1} postId={postId} /> : null}
                 </section>
                 <section className="h-[200px] md:h-[300px]">
                     <video
+                        controls
                         className="w-[100%] h-[100%] object-cover "
-                        src={`http://localhost:4000/shorts/api/stream/${post.post._id}`}
+                        src={`http://localhost:4000/shorts/api/stream/${post?._id}`}
                         type="video/mp4"
                         loop={true}
                         onLoad
                     />
                 </section>
                 <section className="w-100  px-2">
-                    <h3>{post.post.title}</h3>
-                    <p className="text-xs">{post.post.description}</p>
+                    <h3>{post?.title}</h3>
+                    <p className="text-xs">{post?.description}</p>
                 </section>
                 <section className="w-100  p-2 py-3">
                     <div className="flex items-center justify-between ">
                         <div className="flex items-center">
-                            {post.post.likes?.includes(user?._id) ? (
+                            {post?.likes?.includes(user?._id) ? (
                                 <AiFillHeart
                                     fontSize={22}
                                     onClick={handleLike}
@@ -70,26 +126,27 @@ function Post({ post, user, setShowVideo }) {
                                     className="mr-3"
                                 />
                             )}
-                            <FaRegComment
-                                fontSize={22}
-                                onClick={() => setIsCommentOn(isCommentOn ? false : true)}
-                            />
                         </div>
                         <FiShare2 fontSize={22} className="self-start mr-2" />
                     </div>
                     <div className="w-100 px-2">
-                        <p className="text-sm text-left">{post.post.likes?.length}</p>
+                        <p className="text-sm text-left">{post?.likes?.length}</p>
                     </div>
                     <div>
                         <p className="text-xs font-thin mr-2 font-poppins">
-                            {moment(post.post.time).format("llll")}
+                            {moment(post?.time).format("llll")}
                         </p>
                     </div>
                 </section>
             </div>
-            <div className=''>
+            <div>
+                <div className='w-100 flex justify-end p-2'>
+                    <IoMdClose size={20} onClick={() => setShowVideo(false)} />
+                </div>
+                {
 
-                <Comment postId={post.post._id} user={user} />
+                    isEdit ? (<PostEdit post={post} setIsLoading={setIsLoading} setEdit={setEdit} selectIsEdit={selectIsEdit} />) : (<Comment postId={post._id} user={user} />)
+                }
             </div>
         </div>
     )

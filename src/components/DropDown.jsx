@@ -33,7 +33,7 @@ export default function DropDown({ options, postId }) {
                 <Menu.Item key={elem.id}>
                   {({ active }) => (
                     <button
-                      onClick={elem.fn}
+                      onClick={() => elem.fn(postId)}
                       className={classNames(
                         active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                         "block px-4 py-2 text-sm w-100"

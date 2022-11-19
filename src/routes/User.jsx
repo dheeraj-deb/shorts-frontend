@@ -14,8 +14,7 @@ import Profile from "../pages/user/Profile";
 import { useSelector } from "react-redux";
 
 function UserRoutes() {
-  // const navigate = Navigate()
-  // const {user} = useSelector((state) => state.auth)
+  const { user } = useSelector((state) => state.user)
   return (
     <>
       <Router>
@@ -23,9 +22,9 @@ function UserRoutes() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<SignIn />} />
           <Route path="/" element={<Home />} />
-          <Route path="/fileupload" element={<FileUpload />} />
-          <Route path="/message" element={<Chat />} />
-          <Route path="/myprofile" element={<Profile />} />
+          <Route path="/file-upload" element={user ? <FileUpload /> : <Navigate to="/login" />} />
+          <Route path="/message" element={user ? <Chat /> : <Navigate to="/login" />} />
+          <Route path="/my-profile" element={user ? <Profile /> : <Navigate to="/login" />} />
         </Routes>
       </Router>
       <ToastContainer />
