@@ -15,3 +15,8 @@ export const getUser = (id) => Axios.get(`/user/${id}`)
 export const editPost = (id, data) => Axios.patch(`/edit/${id}`, data)
 
 export const findPostById = (id) => Axios.get(`/post/${id}`)
+
+export const savePost = (id) => Axios.post(`/save/${id}`)
+
+export const getSavedPosts = (id) => Axios.get('/saved-post')
+

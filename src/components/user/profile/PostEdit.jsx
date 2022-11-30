@@ -6,12 +6,11 @@ import { editPost } from "../../../services/api/UserRequestes"
 
 function PostEdit({ post, setIsLoading, setEdit, selectIsEdit }) {
 
-    const [formData, setFormData] = useState({ title: "", description: "" })
-    const [initialState, setInitialState] = useState({ title: post.title, description: post.description })
+    const [formData, setFormData] = useState({ title: post.title, description: post.description })
     const handleEdit = async (e) => {
         e.preventDefault()
         setIsLoading(true)
-        await editPost(post?.postId, { title: formData.title, description: formData.description })
+        await editPost(post?._id, { title: formData.title, description: formData.description })
         setEdit(true)
         setIsLoading(false)
         selectIsEdit(false)
@@ -28,12 +27,12 @@ function PostEdit({ post, setIsLoading, setEdit, selectIsEdit }) {
                     <h3 className='font-poppins text-gray-600 font-medium mb-4'>Edit Post</h3>
                     <div>
                         <div className='mb-3 font-poppins'>
-                            <Input label='Title' value={initialState.title} onChange={(e) => setFormData((prev) => {
+                            <Input type="text" label='Title' value={formData.title} onChange={(e) => setFormData((prev) => {
                                 return { ...prev, title: e.target.value }
                             })} />
                         </div>
                         <div>
-                            <Textarea label='Description' value={initialState.description} onChange={(e) => setFormData((prev) => {
+                            <Textarea type="text" label='Description' value={formData.description} onChange={(e) => setFormData((prev) => {
                                 return { ...prev, description: e.target.value }
                             })} />
                         </div>

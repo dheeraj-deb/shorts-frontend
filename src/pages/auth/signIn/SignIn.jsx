@@ -7,7 +7,7 @@ import { BsFacebook } from "react-icons/bs";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-import { login, reset } from "../../../services/reducres/user/UserSlice";
+import { login, reset } from "../../../services/reducres/user/authSlice";
 
 import videoComponent from "../../../assets/overlayvdo.mp4";
 import Spinner from "../../../components/Spinner";
@@ -17,7 +17,7 @@ function SignIn() {
   const navigate = useNavigate();
 
   const { user, isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.user
+    (state) => state.auth
   );
 
   useEffect(() => {

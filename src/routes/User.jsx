@@ -14,7 +14,7 @@ import Profile from "../pages/user/Profile";
 import { useSelector } from "react-redux";
 
 function UserRoutes() {
-  const { user } = useSelector((state) => state.user)
+  const { user } = useSelector((state) => state.auth)
   return (
     <>
       <Router>

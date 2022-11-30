@@ -9,9 +9,9 @@ function Suggestion() {
   const [suggestions, setSuggestions] = useState([]);
   const [isLoading, setLoading] = useState(true);
 
+
   const fetchUsers = async () => {
     const { data } = await getSuggestedUsers();
-    console.log(data)
     setSuggestions(data.suggestion);
   };
 
@@ -32,7 +32,6 @@ function Suggestion() {
       <h3 className="font-poppins text-center font-medium mb-2">
         People you may know
       </h3>
-
       {suggestions?.map((user) => {
         return (
           <div className="mb-2">

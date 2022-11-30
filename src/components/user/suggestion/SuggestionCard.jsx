@@ -1,15 +1,13 @@
 import React from "react";
+import { followAndUnFollow } from "../../../services/reducres/user/userSlice";
 
-import { followAndUnFollow } from "../../../services/reducres/user/UserSlice";
-
-import { AiOutlineUserAdd, AiOutlineUserDelete } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { Button } from "@material-tailwind/react";
 
 function SuggestionCard({ user }) {
-   
+  console.log("suggestion user", user);
   const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.user);
-  console.log("crr user", currentUser);
+
   const handleFollowUnFollow = () => {
     dispatch(followAndUnFollow(user._id));
   };
@@ -27,18 +25,10 @@ function SuggestionCard({ user }) {
         </div>
         <div className=" w-[100%] flex justify-between items-center">
           <h4 className="font-poppins font-normal">{user.username}</h4>
-          {currentUser.user.following.includes(user._id) ? (
-            <AiOutlineUserDelete
-              className="cursor-pointer"
-              size={20}
-              onClick={handleFollowUnFollow}
-            />
+          {user.following.includes(user._id) ? (
+            <Button onClick={handleFollowUnFollow} size='sm' color="red">UnFollow</Button>
           ) : (
-            <AiOutlineUserAdd
-              className="cursor-pointer"
-              size={20}
-              onClick={handleFollowUnFollow}
-            />
+            <Button onClick={handleFollowUnFollow} size='sm'>Follow</Button>
           )}
         </div>
       </div>

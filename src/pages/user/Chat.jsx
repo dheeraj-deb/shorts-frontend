@@ -5,18 +5,20 @@ import {
   Header,
   MobileNav,
 } from "../../components/user/index";
+import { BiSearchAlt } from "react-icons/bi"
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
 import { userChats } from "../../services/api/ChatRequests";
+import { getUser } from "../../services/api/UserRequestes";
 
 function Chat() {
 
   const dispatch = useDispatch();
   const socket = useRef();
-  const { user } = useSelector((state) => state.user);
-  
+  const { user } = useSelector((state) => state.auth);
+
 
   const [chats, setChats] = useState([]);
   const [onlineUsers, setOnlineUsers] = useState([]);
@@ -29,13 +31,13 @@ function Chat() {
     const getChats = async () => {
       try {
         const { data } = await userChats(user._id);
-        console.log(data);
         setChats(data);
       } catch (error) {
         console.log(error);
       }
     };
     getChats();
+
   }, [user._id]);
 
   // Connect to Socket.io
@@ -65,6 +67,7 @@ function Chat() {
     );
   }, []);
 
+
   const checkOnlineStatus = (chat) => {
     const chatMember = chat.members.find((member) => member !== user._id);
     const online = onlineUsers.find((user) => user.userId === chatMember);
@@ -75,11 +78,16 @@ function Chat() {
     <>
       <Header />
       <MobileNav />
-      <div className="pt-[4.5rem] px-2 flex">
+      <div className="pt-[4.5rem] px-2 flex relative">
         <div className=" w-[100%] md:w-1/4 bg-white px-2 py-1">
+          <div className="flex items-center mb-4">
+            <BiSearchAlt size={20} className="mlr-2" />
+            <input onChange={(e) => handleChange(e.target.value)} className="p-2 outline-none w-[100%] bg-gray-100 rounded-lg" type="search" placeholder="Search user.." />
+          </div>
           {chats?.map((chat) => (
             <div
               onClick={() => {
+
                 setCurrentChat(chat);
               }}
             >

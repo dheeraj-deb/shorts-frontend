@@ -24,9 +24,9 @@ export const createPost = createAsyncThunk(
       return response.data;
     } catch (error) {
       const message =
-                (error.response && error.response.data && error.response.data) ||
-                error.message ||
-                error.toString();
+        (error.response && error.response.data && error.response.data) ||
+        error.message ||
+        error.toString();
       return thunkAPI.rejectWithValue(message.message);
     }
   }
@@ -43,9 +43,9 @@ export const getPosts = createAsyncThunk(
       return response.data.posts;
     } catch (error) {
       const message =
-                (error.response && error.response.data && error.response.data) ||
-                error.message ||
-                error.toString();
+        (error.response && error.response.data && error.response.data) ||
+        error.message ||
+        error.toString();
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -58,9 +58,9 @@ export const deletePost = createAsyncThunk("post/deletepost", async (postId, thu
     return response.data
   } catch (error) {
     const message =
-            (error.response && error.response.data && error.response.data) ||
-            error.message ||
-            error.toString();
+      (error.response && error.response.data && error.response.data) ||
+      error.message ||
+      error.toString();
     return thunkAPI.rejectWithValue(error);
   }
 })
@@ -78,9 +78,9 @@ export const likeAndDislike = createAsyncThunk(
       return response.data;
     } catch (error) {
       const message =
-                (error.response && error.response.data && error.response.data) ||
-                error.message ||
-                error.toString();
+        (error.response && error.response.data && error.response.data) ||
+        error.message ||
+        error.toString();
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -106,7 +106,7 @@ const postSlice = createSlice({
       .addCase(createPost.fulfilled, (state, { payload }) => {
         console.log(payload)
         state.isLoading = false;
-        state.post = [...state.post, payload.response];
+        state.post ? state.post = [...state.post, payload.response] : state.post = [payload.response]
         state.isSuccess = true;
       })
       .addCase(createPost.rejected, (state, action) => {

@@ -1,7 +1,7 @@
 import React from "react";
-import { useDispatch} from "react-redux";
-import {useNavigate} from "react-router-dom"
-import { logout } from "../../../services/reducres/user/UserSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom"
+import { logout } from "../../../services/reducres/user/authSlice";
 
 import { GrEdit } from "react-icons/gr";
 import { Button } from "@material-tailwind/react";
@@ -36,15 +36,15 @@ function SideProfile({user}) {
       <div className="p-4">
         <div className="flex justify-between mb-3">
           <div className="text-center">
-            <h3 className="font-poppins font-bold">{user?.followers.length}</h3>
+            <h3 className="font-poppins font-bold">{user?.followers?.length}</h3>
             <p className="font-poppins font-medium text-gray-400">Followers</p>
           </div>
           <div className="text-center">
-            <h3 className="font-poppins font-bold">{user?.posts.length}</h3>
+            <h3 className="font-poppins font-bold">{user?.posts?.length}</h3>
             <p className="font-poppins font-medium text-gray-400">Posts</p>
           </div>
           <div className="text-center">
-            <h3 className="font-poppins font-bold">{user?.following.length}</h3>
+            <h3 className="font-poppins font-bold">{user?.following?.length}</h3>
             <p className="font-poppins font-medium text-gray-400">Following</p>
           </div>
         </div>
@@ -55,8 +55,8 @@ function SideProfile({user}) {
           style={{
             fontFamily: "Poppins",
           }}
-          onClick={()=>{
-            navigate('/myprofile')
+          onClick={() => {
+            navigate('/my-profile')
           }}
         >
           Profile

@@ -1,12 +1,24 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUser } from "../../../services/reducres/user/userSlice.js";
 import SideProfile from "../sideProfile/SideProfile.jsx";
 import Suggestion from "../suggestion/Suggestion.jsx";
 
 function Sidebar() {
-  const { user } = useSelector((state) => state.user);
+  const dispatch = useDispatch()
+  const authData = useSelector((state) => state.auth);
 
-  console.log("user", user);
+  useEffect(() => {
+    const fetch = () => {
+      dispatch(fetchUser(authData?.user?._id))
+    }
+    fetch()
+  }, [])
+
+  const { user } = useSelector((state) => state.user)
+
 
   return (
     <div className=" top-[4.5rem] ">

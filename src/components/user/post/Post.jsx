@@ -1,6 +1,7 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, Suspense } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import moment from "moment";
+import { format } from "timeago.js";
+
 
 import { AiOutlineHeart } from "react-icons/ai";
 import { FaRegComment } from "react-icons/fa";
@@ -12,13 +13,17 @@ import { toast } from "react-toastify";
 import UseIntersectionObserver from "../../../IntersectionObserver";
 import { likeAndDislike, deletePost } from "../../../services/reducres/post/postSlice";
 
-import Comment from "../comment/Comment";
 import DropDown from "../../DropDown";
+import { savePost } from "../../../services/api/UserRequestes";
 
-function Post({ post, isLoading, user }) {
+
+const CommentSection = React.lazy(() => import("../comment/Comment"))
+
+function Post({ post, isLoading, user, setSaved }) {
   const dispatch = useDispatch();
   const [isCommentOn, setIsCommentOn] = useState(false);
   const videoRef = useRef(null);
+  const [play, setPlay] = useState(true)
   const [ref, entry] = UseIntersectionObserver({ threshold: 0.8 });
 
   const options = [
@@ -35,20 +40,39 @@ function Post({ post, isLoading, user }) {
 
   const options1 = [
     {
-      name: "Save",
-      fn: () => {
-        console.log("here");
+      name: `${user?.savedPost?.includes(post._id) ? "Save" : "Remove"}`,
+      fn: (id) => {
+        console.log("userrrrr", user);
+        savePost(id)
+        setSaved((prev) => {
+          return !prev
+        })
       },
       id: 0,
     },
-    {
-      name: "Report",
-      fn: () => {
-        console.log("here");
-      },
-      id: 0,
-    },
+    // {
+    //   name: "Report",
+    //   fn: () => {
+    //     console.log("here");
+    //   },
+    //   id: 1,
+    // },
   ]
+
+
+  const handlePlayPause = () => {
+    setPlay((prev) => !prev)
+    console.log(play);
+  }
+
+
+  useEffect(() => {
+    if (play) {
+      videoRef.current.pause();
+    } else {
+      videoRef.current.play();
+    }
+  }, [play])
 
   if (videoRef.current) {
     if (entry.isIntersecting) {
@@ -88,7 +112,7 @@ function Post({ post, isLoading, user }) {
               alt=""
             />
           </div>
-          <h4>{post?.user ? post.user[0].username : ""}</h4>
+          <h4>{post?.user ? post.user[0]?.username : ""}</h4>
         </div>
         {user ? <DropDown options={(post.postedBy == user._id) ? options : options1} postId={post._id} /> : null}
       </section>
@@ -99,6 +123,7 @@ function Post({ post, isLoading, user }) {
           type="video/mp4"
           loop={true}
           ref={videoRef}
+          onClick={handlePlayPause}
           onLoad
         />
       </section>
@@ -133,12 +158,14 @@ function Post({ post, isLoading, user }) {
           <p className="text-sm text-left">{post.likes.length}</p>
         </div>
         <div>
-          <p className="text-xs font-thin mr-2">
-            {moment(post.time).format("llll")}
+          <p className="font-poppins text-xs font-thin mr-2">
+            {format(post.time)}
           </p>
         </div>
       </section>
-      {isCommentOn ? <Comment postId={post._id} user={user} /> : null}
+      {isCommentOn ? <Suspense fallback={<div>Loading....</div>}>
+        <CommentSection postId={post._id} user={user} />
+      </Suspense> : null}
     </div>
   );
 }

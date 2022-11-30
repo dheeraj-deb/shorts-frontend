@@ -7,17 +7,45 @@ import { useForm } from "react-hook-form";
 
 import { toast } from "react-toastify";
 import videoComponent from "../../../assets/overlayvdo.mp4";
+import Stepper from "../../../components/stepper/Stepper";
+import StepperControl from "../../../components/stepper/StepperControl";
+
+import { Username, EmailAndPassword, ProfilePhoto, Final } from "../../../components/stepper/step"
+import { useState } from "react";
 
 function SignUp() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [currentStep, setCurrentStep] = useState(1)
+  const steps = ["Username", "email&Password", "profilePhoto", "Final"]
+  const displaySteps = (step) => {
+    switch (step) {
+      case 1:
+        return <Username />
+      case 2:
+        return <EmailAndPassword />
+      case 3:
+        return <ProfilePhoto />
+      case 4:
+        return <Final />
+      default:
+
+    }
+  }
+
+  const handleClick = (direction) => {
+    let newStep = currentStep;
+    direction === "next" ? newStep++ : newStep--
+    newStep > 0 && newStep <= steps.length && setCurrentStep(newStep)
+  }
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const { user, isSuccess } = useSelector((state) => state.user);
+  const { user, isSuccess } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (isSuccess || user) {
@@ -57,6 +85,8 @@ function SignUp() {
           <div className="max-w-[400px] w-full mx-auto bg-white p-6">
             <form onSubmit={handleSubmit(handleSignup)}>
               <h2 className="text-4xl font-bold text-center py-3">SignUp</h2>
+              {/* ----- */}
+
               <div className="flex flex-col py-2">
                 <label htmlFor="">Username</label>
                 <input
@@ -137,6 +167,7 @@ function SignUp() {
                 Signup
               </button>
 
+              {/* ----- */}
               <p className="text-center">
                 Already a member?{" "}
                 <Link to="/login">

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import axios from '../../../util/Axios';
-import Post from "./Post"
+import PostModal from "./PostModal"
 import { Spinner } from "../index"
 
 
 function Posts({ user }) {
-    const [Loading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(true)
     const [videos, setVideos] = useState([]);
     const [showVideo, setShowVideo] = useState({ status: false, videoId: "" })
 
@@ -23,15 +23,15 @@ function Posts({ user }) {
         setShowVideo({ ...showVideo, status: true, videoId })
     }
 
-    if (Loading) {
+    if (isLoading) {
         return <Spinner />
     }
 
     return (
-        <div className='w-100 mb-28 mt-2'>
+        <div className='w-100 mb-28 mt-2 '>
             {
                 !showVideo.status ? (
-                    <div className='grid overflow-hidden grid-cols-2 md:grid-cols-3 gap-2 w-4/4'>
+                    <div className='grid overflow-hidden grid-cols-1 px-1 md:px-0 md:grid-cols-3 gap-2 w-4/4'>
                         {
                             videos?.map((video) => {
                                 return (
@@ -44,7 +44,8 @@ function Posts({ user }) {
                         }
                     </div>
                 ) : (
-                    <Post postId={showVideo.videoId} user={user} setShowVideo={setShowVideo} />)
+                    <PostModal postId={showVideo.videoId} user={user} setShowVideo={setShowVideo} />)
+
             }
         </div>
     )

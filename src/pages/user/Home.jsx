@@ -1,14 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import {fetcUserData} from "../../services/reducres/user/UserSlice"
-import { Posts, Sidebar, Layout } from "../../components/user/index";
+import React from "react";
+import { Layout, Posts, Rightbar, Sidebar } from "../../components/user";
+
 
 function Home() {
-  const dispatch =  useDispatch()
-  
+
   return (
     <>
-      <Layout left={<Sidebar />} children={<Posts />} />
+      <Layout left={<Sidebar />} children={<Posts />} right={<Rightbar />} />
     </>
   );
 }

@@ -15,7 +15,6 @@ function ChatBox({ chat, currentUser, setSendMessage, receivedMessage }) {
 
     useEffect(() => {
         const userId = chat?.members?.find((id) => id !== currentUser);
-        console.log("curr", chat);
         const getUserData = async () => {
             try {
                 const { data } = await getUser(userId);
@@ -127,7 +126,7 @@ function ChatBox({ chat, currentUser, setSendMessage, receivedMessage }) {
                     </div>
                 ) : (
                     <div>
-                        <span className="chatbox-empty-message">
+                        <span className="  w-[100%] h-screen chatbox-empty-message flex align-center justify-center front-poppins">
                             Tap on a chat to start conversation...
                         </span>
                     </div>

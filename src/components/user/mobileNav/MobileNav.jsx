@@ -28,16 +28,16 @@ const MobileNav = () => {
               </span>
             </Link>
           </li>
-          <li className="relative list-none w-[70px] h-[70px] z-1">
+          {/* <li className="relative list-none w-[70px] h-[70px] z-1">
             <Link to='/live' className="relative flex justify-center items-center flex-col w-[100%] h-[70px] transition duration-150 hover:-translate-y-4">
               <span className="relative block ">
                 <CameraIcon style={{ color: "#fff" }} />
               </span>
             </Link>
-          </li>
+          </li> */}
           <li className="relative list-none w-[70px] h-[70px] z-1">
             <Link to='/my-profile' className="relative flex justify-center items-center flex-col w-[100%] h-[70px] transition duration-150 hover:-translate-y-4">
-              <span className="relative block ">  
+              <span className="relative block ">
                 <ProfileIcon style={{ color: "#fff" }} />
               </span>
             </Link>

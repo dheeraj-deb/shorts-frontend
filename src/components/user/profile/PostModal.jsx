@@ -11,17 +11,21 @@ import Spinner from '../../Spinner';
 import Comment from '../comment/Comment'
 import PostEdit from './PostEdit';
 
-import { findPostById } from "../../../services/api/UserRequestes"
+import { findPostById, savePost } from "../../../services/api/UserRequestes"
 
-import { deletePost } from "../../../services/reducres/post/postSlice"
+import { deletePost, likeAndDislike } from "../../../services/reducres/post/postSlice"
+import { removePostFromUser } from '../../../services/reducres/user/userSlice';
+import { useRef } from 'react';
 
 function Post({ postId, user, setShowVideo }) {
     const dispatch = useDispatch()
     const [isEdit, selectIsEdit] = useState(false)
     const [edit, setEdit] = useState(false)
+    const [isCommentOn, setIsCommentOn] = useState(false);
     const [isLoading, setIsLoading] = useState(true)
     const [post, setPost] = useState({})
 
+    const profileCommentRef = useRef(null)
 
     const options = [
         {
@@ -34,10 +38,11 @@ function Post({ postId, user, setShowVideo }) {
         {
             name: "Delete",
             fn: (postId) => {
-                dispatch(deletePost(postId))
                 setShowVideo(false)
+                dispatch(deletePost(postId))
+                dispatch(removePostFromUser(postId))
             },
-            id: 0,
+            id: 1,
         }
 
     ];
@@ -45,17 +50,17 @@ function Post({ postId, user, setShowVideo }) {
     const options1 = [
         {
             name: "Save",
-            fn: () => {
-                console.log("here");
+            fn: (id) => {
+                savePost(id)
             },
             id: 0,
         },
         {
             name: "Report",
-            fn: () => {
-                console.log("here");
+            fn: (id) => {
+
             },
-            id: 0,
+            id: 1,
         },
     ]
 
@@ -70,9 +75,23 @@ function Post({ postId, user, setShowVideo }) {
     }, [edit])
 
 
-    const handleLike = () => { }
+    function handleLike() {
+        if (user) {
+            dispatch(likeAndDislike({ postId: post._id, userId: user._id }));
+            fetchPost()
+        } else {
+            toast("Please Login!");
+        }
+    }
 
-    const setIsCommentOn = () => { }
+    if (isCommentOn) {
+        profileCommentRef.current.scrollTop = profileCommentRef.current.scrollHeight;
+    }
+
+    if (isEdit) {
+        profileCommentRef.current.scrollTop = profileCommentRef.current.scrollHeight;
+    }
+
 
 
 
@@ -81,8 +100,11 @@ function Post({ postId, user, setShowVideo }) {
     }
 
     return (
-        <div className='grid overflow-hidden grid-cols-2 gap-2 w-4/4 border'>
-            <div className=''>
+        <div ref={profileCommentRef} className='grid grid-cols-1   overflow-hidden w-4/4 border absolute w-[60%] left-[20%] right-[20%] top-[20%] bg-white shadow-xl h-[450px] md:h-[500px] overflow-y-scroll rounded-xl transition duration-75  ease-in transition-all'>
+            <div>
+                <div className='w-100 flex justify-end p-2'>
+                    <IoMdClose size={20} onClick={() => setShowVideo(false)} />
+                </div>
                 <section className="w-100 flex items-center justify-between p-2">
                     <div className="flex items-center">
                         <div className="w-[45px] h-[45px] mr-2">
@@ -126,6 +148,10 @@ function Post({ postId, user, setShowVideo }) {
                                     className="mr-3"
                                 />
                             )}
+                            <FaRegComment
+                                fontSize={22}
+                                onClick={() => setIsCommentOn(isCommentOn ? false : true)}
+                            />
                         </div>
                         <FiShare2 fontSize={22} className="self-start mr-2" />
                     </div>
@@ -140,12 +166,9 @@ function Post({ postId, user, setShowVideo }) {
                 </section>
             </div>
             <div>
-                <div className='w-100 flex justify-end p-2'>
-                    <IoMdClose size={20} onClick={() => setShowVideo(false)} />
-                </div>
                 {
 
-                    isEdit ? (<PostEdit post={post} setIsLoading={setIsLoading} setEdit={setEdit} selectIsEdit={selectIsEdit} />) : (<Comment postId={post._id} user={user} />)
+                    isEdit ? (<PostEdit post={post} setIsLoading={setIsLoading} setEdit={setEdit} selectIsEdit={selectIsEdit} />) : (isCommentOn ? (<Comment postId={post._id} user={user} />) : null)
                 }
             </div>
         </div>

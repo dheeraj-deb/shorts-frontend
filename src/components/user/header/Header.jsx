@@ -16,7 +16,7 @@ import {
 const Header = () => {
 
   const navigate = useNavigate()
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.auth);
 
   return (
     <div className="w-[100%] p-4 bg-[#153462] flex items-center justify-around fixed z-50">
@@ -35,18 +35,18 @@ const Header = () => {
         <Link to="/">
           <HomeIcon style={{ color: "#fff" }} className="text-xl ml-6" />
         </Link>
-        <Link to="/live">
+        {/* <Link to="/live">
           <CameraIcon style={{ color: "#fff" }} className="ml-6 " />
-        </Link>
+        </Link> */}
         <Link to="/message">
           <MessageIcon style={{ color: "#fff" }} className="ml-6 " />
         </Link>
         <Link to="/file-upload">
           <PlusIcon style={{ color: "#fff" }} className="ml-6" />
         </Link>
-        <Link to="/settings">
+        {/* <Link to="/settings">
           <SettingsIcon style={{ color: "#fff" }} className="ml-6 " />
-        </Link>
+        </Link> */}
         {user ? (
           <Link to="my-profile">
             <ProfileIcon style={{ color: "#fff" }} className="ml-6 " />

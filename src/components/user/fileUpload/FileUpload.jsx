@@ -23,7 +23,6 @@ function FileUpload() {
 
   function handleUpload(e) {
     e.preventDefault();
-    // const form = new FormData(uploadData)
     dispatch(createPost(uploadData));
   }
 

@@ -1,20 +1,29 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { reset, getPosts } from "../../../services/reducres/post/postSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Post from "./Post";
+import { getUser } from "../../../services/api/UserRequestes";
 
 function Posts() {
   const dispatch = useDispatch();
+  const [userDetails, setUserDetails] = useState({})
+  const [saved, setSaved] = useState(false)
   const { post, isLoading, isSuccess, message, isError } = useSelector(
     (state) => state.post
   );
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.auth);
+
+  const fetchUserData = async () => {
+    const { data } = await getUser(user?._id)
+    setUserDetails(data)
+  }
 
   useEffect(() => {
+    fetchUserData()
     dispatch(getPosts());
-  }, []);
+  }, [saved]);
 
   useEffect(() => {
     if (isError) {
@@ -36,8 +45,9 @@ function Posts() {
           <Post
             post={val}
             isLoading={isLoading}
-            user={user}
+            user={userDetails}
             key={val._id}
+            setSaved={setSaved}
           />
         );
       })}

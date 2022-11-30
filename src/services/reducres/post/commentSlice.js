@@ -55,6 +55,7 @@ export const deleteComments = createAsyncThunk("comment/delete", async (commentI
 export const likeAndDislike = createAsyncThunk(
   "comment/likeAndDislike",
   async (commentId, thunkAPI) => {
+    console.log("com", commentId);
     try {
       const response = await handleLikeAndDislike(commentId);
       return response.data;
@@ -82,7 +83,7 @@ const commentSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getComment.pending, (state) => {
-        state.isError = true
+        state.isLoading = true
       })
       .addCase(getComment.fulfilled, (state, { payload }) => {
         state.isLoading = false
@@ -95,8 +96,11 @@ const commentSlice = createSlice({
         state.post = null;
         state.message = action.payload;
       })
+      .addCase(postComments.pending, (state, { payload }) => {
+        state.isLoading = true
+      })
       .addCase(postComments.fulfilled, (state, { payload }) => {
-        if (state.comments) {
+        if (state.comments.length) {
           state.comments = [...state.comments, payload.comment]
         } else {
           state.comments = [payload.comment]
@@ -107,7 +111,11 @@ const commentSlice = createSlice({
         state.isLoading = false;
         state.message = action.payload;
       })
+      .addCase(likeAndDislike.pending, (state, action) => {
+        console.log("action", action);
+      })
       .addCase(likeAndDislike.fulfilled, (state, action) => {
+        console.log("payload", action.payload);
         state.comments.map((elem) => {
           if (elem.commentId == action.payload.commentId) {
             if (!elem.likes.includes(action.payload.userId)) {

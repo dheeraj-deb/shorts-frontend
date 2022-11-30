@@ -27,17 +27,6 @@ export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
   }
 });
 
-// handle following and unFollowing
-export const followAndUnFollow = createAsyncThunk("auth/followUnfollow", async (user, thunkAPI) => {
-  try {
-    const response = await axiosReq.patch(`/follow_unfollow/${user}`);
-    return response.data;
-  } catch (error) {
-    const message = (error.response && error.response.data && error.response.data) || error.message || error.toString();
-    return thunkAPI.rejectWithValue(message.message)
-  }
-})
-
 
 // handle logout
 export const logout = createAsyncThunk("auth/logout", async () => {
@@ -76,17 +65,6 @@ export const authSlice = createSlice({
       })
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
-      })
-      .addCase(followAndUnFollow.fulfilled, (state, { payload }) => {
-        if (payload.message === "Followed")
-          state.user.following = [...state.user.following, payload.userId];
-        else if (payload.message === "UnFollowed")
-          state.user.following = state.user.following.filter((user) => {
-            return user !== payload.userId
-          })
-      })
-      .addCase(followAndUnFollow.rejected, (state, { payload }) => {
-        console.log(payload);
       })
   },
 });

@@ -15,7 +15,7 @@ function Conversation({ data, currentUser, online }) {
             try {
                 const { data } = await getUser(userId)
                 setUserData(data)
-                dispatch({ type: "SAVE_USER", data: data })
+                // dispatch({ type: "SAVE_USER", data: data })
             }
             catch (error) {
                 console.log(error)

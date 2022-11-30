@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import axios from "../../../util/Axios";
+import React, { useState } from "react";
+import { GrEdit } from "react-icons/gr";
 import Posts from "./Posts";
 import ProfilePosts from "./ProfilePosts";
 import Saved from "./Saved";
+import ProfileEditModal from "./ProfileEditModal"
 
-function Profile() {
+function Profile({ user }) {
   const [navigatePost, setNavigatePosts] = useState(true)
   const [navigateSaved, setNavigateSaved] = useState(true)
-
-  const { user } = useSelector((state) => state.user);
+  const [open, setOpen] = useState(false)
 
   const changePage = (page) => {
     if (page) {
@@ -20,9 +19,9 @@ function Profile() {
   }
 
   return (
-    <div className="w-[100%] pt-[4rem] bg-white flex flex-col items-center">
+    <div className="w-[100%] h-[100%] pt-[4rem] bg-white flex flex-col items-center relative">
       {/* header */}
-      <div className=" p-2 w[100%] flex flex-col items-center">
+      <div className=" p-2 w[100%] flex flex-col items-center relative">
         {/* profile */}
         <div className="w-32 h-32">
           <img
@@ -30,6 +29,9 @@ function Profile() {
             src="https://i.pinimg.com/originals/3a/16/df/3a16df8d7ddb3840a57e5aadf79b8ee2.jpg"
             alt="profile"
           />
+          <div className="absolute right-0 top-5">
+            <GrEdit onClick={() => setOpen((prev) => !prev)} />
+          </div>
         </div>
         <div className="w-100 flex flex-col items-center p-2">
           <h3 className="font-poppins font-bold text-lg">{user?.username}</h3>
@@ -38,15 +40,15 @@ function Profile() {
           {/* stat*/}
           <div className="flex">
             <div className="text-center p-4">
-              <h3 className="font-poppins font-medium text-lg">{user?.followers.length}</h3>
+              <h3 className="font-poppins font-medium text-lg">{user?.followers?.length}</h3>
               <p className="font-poppins font-medium text-sm text-gray-600">Followers</p>
             </div>
             <div className="text-center p-4" >
-              <h3 className="font-poppins font-medium text-lg">{user?.posts.length}</h3>
+              <h3 className="font-poppins font-medium text-lg">{user?.posts?.length}</h3>
               <p className="font-poppins font-medium text-sm text-gray-600">Posts</p>
             </div>
             <div className="text-center p-4">
-              <h3 className="font-poppins font-medium text-lg">{user?.following.length}</h3>
+              <h3 className="font-poppins font-medium text-lg">{user?.following?.length}</h3>
               <p className="font-poppins font-medium text-sm text-gray-600">Following</p>
             </div>
           </div>
@@ -55,8 +57,8 @@ function Profile() {
       {/* posts */}
       <div className="md:w-[700px] lg:w-[1000px]">
         <ProfilePosts setPost={changePage} />
-        {console.log(navigatePost)}
-        {navigatePost ? (<Posts user={user} />) : (<Saved />)}
+        {navigatePost ? (<Posts user={user} />) : (<Saved user={user} />)}
+        <ProfileEditModal open={open} setOpen={setOpen} />
       </div>
     </div>
   );
