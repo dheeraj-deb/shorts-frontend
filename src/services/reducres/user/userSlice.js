@@ -42,7 +42,9 @@ export const fetchUser = createAsyncThunk("user/get-user", async (userId, thunkA
 
 export const editProfile = createAsyncThunk("user/edit-profile", async (data, thunkAPI) => {
     try {
-        const response = await axiosReq.post("/user/edit", data, config);
+        console.log("data", data);
+        const { username, bio, profile } = data
+        const response = await axiosReq.post("/user/edit", { username, bio, profile }, config);
         return response.data;
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data) || error.message || error.toString();
@@ -56,7 +58,7 @@ export const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        reset: (state) => {
+        reset: (state) => {localhost
             state.isError = false;
             state.isLoading = false;
             state.isSuccess = false;

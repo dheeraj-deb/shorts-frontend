@@ -3,6 +3,7 @@ import axiosReq from "../../../util/Axios";
 
 const initialState = {
   post: [],
+  filteredPosts: [],
   isError: false,
   isLoading: false,
   isSuccess: false,
@@ -96,6 +97,15 @@ const postSlice = createSlice({
       state.isError = false;
       state.message = "";
     },
+    searchPosts: (state, { payload }) => {
+      if (payload) {
+        state.filteredPosts = state.post.filter((post) => {
+          return post.title.toLowerCase().includes(payload.toLowerCase())
+        })
+      } else {
+        state.filteredPosts = state.post
+      }
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -161,5 +171,5 @@ const postSlice = createSlice({
   },
 });
 
-export const { reset } = postSlice.actions;
+export const { reset, searchPosts } = postSlice.actions;
 export default postSlice.reducer;

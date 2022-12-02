@@ -10,34 +10,38 @@ import videoComponent from "../../../assets/overlayvdo.mp4";
 import Stepper from "../../../components/stepper/Stepper";
 import StepperControl from "../../../components/stepper/StepperControl";
 
-import { Username, EmailAndPassword, ProfilePhoto, Final } from "../../../components/stepper/step"
+import {
+  Username,
+  EmailAndPassword,
+  ProfilePhoto,
+  Final,
+} from "../../../components/stepper/step";
 import { useState } from "react";
 
 function SignUp() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [currentStep, setCurrentStep] = useState(1)
-  const steps = ["Username", "email&Password", "profilePhoto", "Final"]
+  const [currentStep, setCurrentStep] = useState(1);
+  const steps = ["Username", "email&Password", "profilePhoto", "Final"];
   const displaySteps = (step) => {
     switch (step) {
       case 1:
-        return <Username />
+        return <Username />;
       case 2:
-        return <EmailAndPassword />
+        return <EmailAndPassword />;
       case 3:
-        return <ProfilePhoto />
+        return <ProfilePhoto />;
       case 4:
-        return <Final />
+        return <Final />;
       default:
-
     }
-  }
+  };
 
   const handleClick = (direction) => {
     let newStep = currentStep;
-    direction === "next" ? newStep++ : newStep--
-    newStep > 0 && newStep <= steps.length && setCurrentStep(newStep)
-  }
+    direction === "next" ? newStep++ : newStep--;
+    newStep > 0 && newStep <= steps.length && setCurrentStep(newStep);
+  };
 
   const {
     register,

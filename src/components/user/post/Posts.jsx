@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { reset, getPosts } from "../../../services/reducres/post/postSlice";
+import { reset, getPosts, searchPosts } from "../../../services/reducres/post/postSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Post from "./Post";
@@ -10,7 +10,7 @@ function Posts() {
   const dispatch = useDispatch();
   const [userDetails, setUserDetails] = useState({})
   const [saved, setSaved] = useState(false)
-  const { post, isLoading, isSuccess, message, isError } = useSelector(
+  const { post, filteredPosts, isLoading, isSuccess, message, isError } = useSelector(
     (state) => state.post
   );
   const { user } = useSelector((state) => state.auth);
@@ -36,9 +36,14 @@ function Posts() {
     }
   }, [isLoading, isSuccess, message, isError]);
 
+  // useEffect(() => {
+  //   dispatch(searchPosts())
+  // }, [])
+
 
   return (
     <>
+    {/* filteredPost.map */}
       {post?.map((val) => {
         console.log(val);
         return (

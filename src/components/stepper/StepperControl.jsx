@@ -12,7 +12,7 @@ function StepperControl({ handleClick, currentStep, steps }) {
                 onClick={() => handleClick("next")}
                 className='bg-green-600 text-white uppercase py-2 px-4 rounded-xl font-poppins cursor-pointer
             hover:bg-green-700 hover:text-white transition duration-200'>
-                {currentStep === steps.length - 1 ? "Submit" : "Next"}
+                {currentStep === steps?.length - 1 ? "Submit" : "Next"}
             </button>
         </div>
     )

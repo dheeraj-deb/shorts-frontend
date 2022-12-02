@@ -1,14 +1,19 @@
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { GrEdit } from "react-icons/gr";
 import Posts from "./Posts";
 import ProfilePosts from "./ProfilePosts";
 import Saved from "./Saved";
 import ProfileEditModal from "./ProfileEditModal"
+// import FollowingAndFollowerModal from "./FollowingAndFollowerModal";
+const FollowingAndFollowerModal = React.lazy(() => import('./FollowingAndFollowerModal'))
 
 function Profile({ user }) {
   const [navigatePost, setNavigatePosts] = useState(true)
   const [navigateSaved, setNavigateSaved] = useState(true)
   const [open, setOpen] = useState(false)
+  const [openFollower, setOpenFollower] = useState(false)
+  const [openFollowing, setOpenFollowing] = useState(false)
+  const [openFoModal, setOpenFoModal] = useState(false)
 
   const changePage = (page) => {
     if (page) {
@@ -39,15 +44,25 @@ function Profile({ user }) {
 
           {/* stat*/}
           <div className="flex">
-            <div className="text-center p-4">
+            <div className="text-center p-4" onClick={() => {
+              setOpenFollower(true)
+              setOpenFoModal((prev) => !prev)
+              setOpenFollowing(false)
+            }}>
               <h3 className="font-poppins font-medium text-lg">{user?.followers?.length}</h3>
               <p className="font-poppins font-medium text-sm text-gray-600">Followers</p>
             </div>
+
             <div className="text-center p-4" >
               <h3 className="font-poppins font-medium text-lg">{user?.posts?.length}</h3>
               <p className="font-poppins font-medium text-sm text-gray-600">Posts</p>
             </div>
-            <div className="text-center p-4">
+
+            <div className="text-center p-4" onClick={() => {
+              setOpenFollowing(true)
+              setOpenFoModal((prev) => !prev)
+              setOpenFollower(false)
+            }}>
               <h3 className="font-poppins font-medium text-lg">{user?.following?.length}</h3>
               <p className="font-poppins font-medium text-sm text-gray-600">Following</p>
             </div>
@@ -59,6 +74,9 @@ function Profile({ user }) {
         <ProfilePosts setPost={changePage} />
         {navigatePost ? (<Posts user={user} />) : (<Saved user={user} />)}
         <ProfileEditModal open={open} setOpen={setOpen} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <FollowingAndFollowerModal userId={user._id} openFollower={openFollower} openFollowing={openFollowing} setOpenFollower={setOpenFollower} setOpenFollowing={setOpenFollowing} openFoModal={openFoModal} setOpenFoModal={setOpenFoModal} />
+        </Suspense>
       </div>
     </div>
   );

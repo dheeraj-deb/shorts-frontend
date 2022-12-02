@@ -20,3 +20,6 @@ export const savePost = (id) => Axios.post(`/save/${id}`)
 
 export const getSavedPosts = (id) => Axios.get('/saved-post')
 
+export const getFollowers = (id) => Axios.get(`/user/followers/${id}`)
+
+export const getFollowing = (id) => Axios.get(`/user/following/${id}`)
