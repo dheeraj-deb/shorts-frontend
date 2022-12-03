@@ -37,7 +37,7 @@ function Saved({ user }) {
                 console.log("videeeeee", video);
                 return (
                   <div key={video.saved._id} className="relative">
-                    <video src={`http://localhost:4000/shorts/api/stream/${video.saved._id}`} onClick={() => handleDetailView(video?.saved?._id)} />
+                    <video src={`https://shortsmedium.ml/shorts/api/stream/${video.saved._id}`} onClick={() => handleDetailView(video?.saved?._id)} />
                     <p className='font-poppins absolute bottom-1 right-1 text-gray-300 font-medium text-xs'>{video?.saved?.likes?.length} likes</p>
                   </div>
                 )

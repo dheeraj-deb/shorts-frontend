@@ -36,7 +36,7 @@ function Posts({ user }) {
                             videos?.map((video) => {
                                 return (
                                     <div key={video.post._id} className="relative">
-                                        <video src={`http://localhost:4000/shorts/api/stream/${video.post._id}`} onClick={() => handleDetailView(video.post._id)} />
+                                        <video src={`https://shortsmedium.ml/shorts/api/stream/${video.post._id}`} onClick={() => handleDetailView(video.post._id)} />
                                         <p className='font-poppins absolute bottom-1 right-1 text-gray-300 font-medium text-xs'>{video.post.likes.length} likes</p>
                                     </div>
                                 )

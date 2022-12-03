@@ -122,7 +122,7 @@ function Post({ postId, user, setShowVideo }) {
                     <video
                         controls
                         className="w-[100%] h-[100%] object-cover "
-                        src={`http://localhost:4000/shorts/api/stream/${post?._id}`}
+                        src={`https://shortsmedium.ml/shorts/api/stream/${post?._id}`}
                         type="video/mp4"
                         loop={true}
                         onLoad
