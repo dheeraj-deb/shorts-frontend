@@ -6,7 +6,7 @@ import UserRoutes from "./routes/User";
 function App() {
   return (
     <>
-      <UserRoutes />
+      {/* <UserRoutes /> */}
       {/* <Admin/> */}
     </>
   );

@@ -114,12 +114,12 @@ function Post({ post, isLoading, user, setSaved }) {
           </div>
           <h4>{post?.user ? post.user[0]?.username : ""}</h4>
         </div>
-        {user ? <DropDown options={(post.postedBy == user._id) ? options : options1} postId={post._id} /> : null}
+        {user ? <DropDown options={(post?.postedBy == user?._id) ? options : options1} postId={post?._id} /> : null}
       </section>
       <section className="h-[200px] md:h-[300px]" ref={ref}>
         <video
           className="w-[100%] h-[100%] object-cover "
-          src={`http://localhost:4000/shorts/api/stream/${post._id}`}
+          src={`https://shortsmedium.ml/shorts/api/stream/${post?._id}`}
           type="video/mp4"
           loop={true}
           ref={videoRef}
