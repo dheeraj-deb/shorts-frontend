@@ -1,10 +1,10 @@
 import axios from "axios";
-
+import { DEFAULT_API } from "../config"
 
 const token = JSON.parse(localStorage.getItem("user"))?.accessToken
 
 const Axios = axios.create({
-  baseURL: "http://localhost:4000/shorts/api",
+  baseURL: DEFAULT_API,
   headers: {
     Authorization: token ? `Bearer ${token}` : null,
   },
