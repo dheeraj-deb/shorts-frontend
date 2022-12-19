@@ -39,7 +39,7 @@ const MobileNav = () => {
             </Link>
           </li> */}
           <li className="relative list-none w-[70px] h-[70px] z-1">
-            <Link to={`/profile${user._id}`} className="relative flex justify-center items-center flex-col w-[100%] h-[70px] transition duration-150 hover:-translate-y-4">
+            <Link to={`/profile${user?._id}`} className="relative flex justify-center items-center flex-col w-[100%] h-[70px] transition duration-150 hover:-translate-y-4">
               <span className="relative block ">
                 <ProfileIcon style={{ color: "#fff" }} />
               </span>
