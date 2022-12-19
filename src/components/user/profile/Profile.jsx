@@ -10,7 +10,6 @@ import { DEFAULT_PROFILE, PROFILE_API } from "../../../config"
 
 const Posts = React.lazy(() => import("./Posts"))
 const FollowingAndFollowerModal = React.lazy(() => import('./FollowingAndFollowerModal'))
-import { DEFAULT_PROFILE } from "../../../config"
 
 function Profile({ id }) {
   const [navigatePost, setNavigatePosts] = useState(true)

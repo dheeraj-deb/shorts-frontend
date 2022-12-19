@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom"
 import { followAndUnFollow } from "../../../services/reducres/user/userSlice";
-import { DEFAULT_PROFILE } from "../../../config"
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@material-tailwind/react";
 
