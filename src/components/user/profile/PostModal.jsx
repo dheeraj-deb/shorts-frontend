@@ -16,6 +16,7 @@ import { findPostById, savePost } from "../../../services/api/UserRequestes"
 import { deletePost, likeAndDislike } from "../../../services/reducres/post/postSlice"
 import { removePostFromUser } from '../../../services/reducres/user/userSlice';
 import { useRef } from 'react';
+import { DEFAULT_PROFILE } from '../../../config';
 
 function Post({ postId, user, setShowVideo }) {
     const dispatch = useDispatch()
@@ -110,7 +111,7 @@ function Post({ postId, user, setShowVideo }) {
                         <div className="w-[45px] h-[45px] mr-2">
                             <img
                                 className="w-[100%] h-[100%] relative object-cover rounded-full"
-                                src="https://pga-tour-res.cloudinary.com/image/upload/c_fill,dpr_3.0,f_auto,g_center,h_393,q_auto,w_713/v1/pgatour/editorial/2022/04/17/fleetwood-1694-patricksmith.jpg"
+                                src={user.profileUri ? `http://localhost:4000/${user.profileUri}` : DEFAULT_PROFILE}
                                 alt=""
                             />
                         </div>
@@ -122,7 +123,7 @@ function Post({ postId, user, setShowVideo }) {
                     <video
                         controls
                         className="w-[100%] h-[100%] object-cover "
-                        src={`https://shortsmedium.ml/shorts/api/stream/${post?._id}`}
+                        src={`http://localhost:4000/shorts/api/stream/${post?._id}`}
                         type="video/mp4"
                         loop={true}
                         onLoad

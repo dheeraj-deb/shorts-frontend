@@ -3,6 +3,8 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { followAndUnFollow } from '../../../services/reducres/user/userSlice';
 
+import { DEFAULT_PROFILE } from "../../../config"
+
 function FollowerFollowingCard({ user }) {
     const current = useSelector((state) => state.user)
 
@@ -19,8 +21,8 @@ function FollowerFollowingCard({ user }) {
                 {/* profilr */}
                 <div className="mr-2">
                     <img
-                        className="w-[40px] h-[40px] object-cover rounded-full"
-                        src="https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg"
+                        className="w-[49px] h-[45px] object-cover rounded-full"
+                        src={user.profileUri ? `http://localhost:4000/${user.profileUri}` : DEFAULT_PROFILE}
                         alt="profile"
                     />
                 </div>

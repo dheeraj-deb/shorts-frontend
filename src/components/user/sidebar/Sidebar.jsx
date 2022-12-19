@@ -1,8 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUser } from "../../../services/reducres/user/userSlice.js";
+import { clearUser, fetchUser } from "../../../services/reducres/user/userSlice.js";
 import SideProfile from "../sideProfile/SideProfile.jsx";
 import Suggestion from "../suggestion/Suggestion.jsx";
 
@@ -15,6 +14,12 @@ function Sidebar() {
       dispatch(fetchUser(authData?.user?._id))
     }
     fetch()
+  }, [])
+
+  useEffect(() => {
+    return (() => {
+      dispatch(clearUser())
+    })
   }, [])
 
   const { user } = useSelector((state) => state.user)

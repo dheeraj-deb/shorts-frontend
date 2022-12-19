@@ -46,7 +46,7 @@ const Header = () => {
           <SettingsIcon style={{ color: "#fff" }} className="ml-6 " />
         </Link> */}
         {user ? (
-          <Link to="my-profile">
+          <Link to={`/profile/${user._id}`}>
             <ProfileIcon style={{ color: "#fff" }} className="ml-6 " />
           </Link>
         ) : (

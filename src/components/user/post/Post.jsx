@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef, Suspense } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { format } from "timeago.js";
-
+import { DEFAULT_PROFILE } from "../../../config"
 
 import { AiOutlineHeart } from "react-icons/ai";
 import { FaRegComment } from "react-icons/fa";
@@ -42,7 +42,6 @@ function Post({ post, isLoading, user, setSaved }) {
     {
       name: `${user?.savedPost?.includes(post._id) ? "Save" : "Remove"}`,
       fn: (id) => {
-        console.log("userrrrr", user);
         savePost(id)
         setSaved((prev) => {
           return !prev
@@ -108,7 +107,7 @@ function Post({ post, isLoading, user, setSaved }) {
           <div className="w-[45px] h-[45px] mr-2">
             <img
               className="w-[100%] h-[100%] relative object-cover rounded-full"
-              src="https://pga-tour-res.cloudinary.com/image/upload/c_fill,dpr_3.0,f_auto,g_center,h_393,q_auto,w_713/v1/pgatour/editorial/2022/04/17/fleetwood-1694-patricksmith.jpg"
+              src={post.user[0].profileUri ? `http://localhost:4000/${post.user[0].profileUri}` : DEFAULT_PROFILE}
               alt=""
             />
           </div>
@@ -119,7 +118,7 @@ function Post({ post, isLoading, user, setSaved }) {
       <section className="h-[200px] md:h-[300px]" ref={ref}>
         <video
           className="w-[100%] h-[100%] object-cover "
-          src={`https://shortsmedium.ml/shorts/api/stream/${post?._id}`}
+          src={`http://localhost:4000/shorts/api/stream/${post?._id}`}
           type="video/mp4"
           loop={true}
           ref={videoRef}

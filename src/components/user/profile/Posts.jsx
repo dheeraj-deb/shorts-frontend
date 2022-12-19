@@ -4,19 +4,22 @@ import PostModal from "./PostModal"
 import { Spinner } from "../index"
 
 
-function Posts({ user }) {
+function Posts({ userId }) {
     const [isLoading, setIsLoading] = useState(true)
     const [videos, setVideos] = useState([]);
     const [showVideo, setShowVideo] = useState({ status: false, videoId: "" })
 
     const fetchUserPosts = async () => {
-        const { data } = await axios.get(`/user/posts/${user._id}`);
+        const { data } = await axios.get(`/user/posts/${userId}`);
         setVideos(data.posts);
     };
 
     useEffect(() => {
         fetchUserPosts();
         setIsLoading(false)
+        return (() => {
+            setVideos([])
+        })
     }, [showVideo.status]);
 
     const handleDetailView = (videoId) => {
@@ -36,7 +39,7 @@ function Posts({ user }) {
                             videos?.map((video) => {
                                 return (
                                     <div key={video.post._id} className="relative">
-                                        <video src={`https://shortsmedium.ml/shorts/api/stream/${video.post._id}`} onClick={() => handleDetailView(video.post._id)} />
+                                        <video src={`http://localhost:4000/shorts/api/stream/${video.post._id}`} onClick={() => handleDetailView(video.post._id)} />
                                         <p className='font-poppins absolute bottom-1 right-1 text-gray-300 font-medium text-xs'>{video.post.likes.length} likes</p>
                                     </div>
                                 )

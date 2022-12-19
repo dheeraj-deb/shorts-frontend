@@ -43,10 +43,7 @@ function Comment({ postId, user }) {
 
 
   const handleComment = () => {
-    addComment((prev) => {
-      console.log("random", generateRandomBytes());
-      return { ...prev, commentId: generateRandomBytes() }
-    })
+    console.log("comm", comment)
     dispatch(postComments({ postId, comment }))
   };
 
@@ -84,7 +81,7 @@ function Comment({ postId, user }) {
         {comments?.map((comment) => {
           if (comment.postId === postId) {
             return (
-              <div className="py-2 px-5">
+              <div className="py-2 px-5" key={comment.commentId}>
                 <div className="mb-4">
                   <div className="flex justify-between">
                     <div className="flex">
@@ -107,7 +104,7 @@ function Comment({ postId, user }) {
                     </div>
                     <div>
                       {
-                        comment?.likes.includes(user?._id) ? (<AiFillHeart className="text-red-600" onClick={() => {
+                        comment?.likes?.includes(user?._id) ? (<AiFillHeart className="text-red-600" onClick={() => {
                           handleLike(comment.commentId)
                         }} fontSize={14} />) : (<AiOutlineHeart onClick={() => {
                           handleLike(comment.commentId)
@@ -123,7 +120,10 @@ function Comment({ postId, user }) {
                       comment?.commentedBy == user?._id ? (
                         <button
                           className="font-poppins font-bold text-xs text-gray-500"
-                          onClick={() => handleDelete(comment.commentId)}>
+                          onClick={() => {
+                            console.log("commId", comment.commentId)
+                            handleDelete(comment.commentId)
+                          }}>
                           Delete
                         </button>
                       ) : (null)
@@ -149,7 +149,8 @@ function Comment({ postId, user }) {
             addComment((prev) => {
               return {
                 ...prev,
-                text: e.target.value
+                text: e.target.value,
+                commentId: generateRandomBytes()
               }
             })
           }} />

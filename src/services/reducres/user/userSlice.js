@@ -58,7 +58,7 @@ export const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        reset: (state) => {localhost
+        reset: (state) => {
             state.isError = false;
             state.isLoading = false;
             state.isSuccess = false;
@@ -69,6 +69,9 @@ export const userSlice = createSlice({
             state.posts = state.posts.filter((postId) => {
                 return postId !== payload
             })
+        },
+        clearUser: (state) => {
+            state.user = {}
         }
     },
     extraReducers: (builder) => {
@@ -81,8 +84,12 @@ export const userSlice = createSlice({
                         return user !== payload.userId
                     })
             })
+            .addCase(fetchUser.pending, (state, { payload }) => {
+                state.isLoading = true
+            })
             .addCase(fetchUser.fulfilled, (state, { payload }) => {
                 state.user = payload
+                state.isLoading = false
             })
             .addCase(editProfile.pending, (state, { payload }) => {
                 state.isLoading = true
@@ -100,5 +107,5 @@ export const userSlice = createSlice({
     },
 });
 
-export const { reset, removePostFromUser } = userSlice.actions;
+export const { reset, removePostFromUser, clearUser} = userSlice.actions;
 export default userSlice.reducer;

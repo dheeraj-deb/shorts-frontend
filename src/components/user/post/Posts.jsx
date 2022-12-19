@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Post from "./Post";
 import { getUser } from "../../../services/api/UserRequestes";
+import { clearUser } from "../../../services/reducres/user/userSlice";
 
 function Posts() {
   const dispatch = useDispatch();
@@ -19,6 +20,12 @@ function Posts() {
     const { data } = await getUser(user?._id)
     setUserDetails(data)
   }
+
+  useEffect(() => {
+    return (() => {
+      dispatch(clearUser())
+    })
+  }, [])
 
   useEffect(() => {
     fetchUserData()
@@ -43,7 +50,7 @@ function Posts() {
 
   return (
     <>
-    {/* filteredPost.map */}
+      {/* filteredPost.map */}
       {post?.map((val) => {
         console.log(val);
         return (

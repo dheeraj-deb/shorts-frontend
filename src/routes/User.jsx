@@ -24,7 +24,8 @@ function UserRoutes() {
           <Route path="/" element={<Home />} />
           <Route path="/file-upload" element={user ? <FileUpload /> : <Navigate to="/login" />} />
           <Route path="/message" element={user ? <Chat /> : <Navigate to="/login" />} />
-          <Route path="/my-profile" element={user ? <Profile /> : <Navigate to="/login" />} />
+          {/* <Route path="/my-profile" element={user ? <Profile /> : <Navigate to="/login" />} /> */}
+          <Route path="/profile/:id" element={<Profile />} />
         </Routes>
       </Router>
       <ToastContainer />

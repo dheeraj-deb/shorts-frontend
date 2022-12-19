@@ -1,26 +1,16 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import { Header, MobileNav, ProfileC } from "../../components/user/index";
-import { fetchUser } from "../../services/reducres/user/userSlice";
+import { useParams } from "react-router-dom"
 
 function Profile() {
 
-
-  const dispatch = useDispatch()
-  const authData = useSelector((state) => state.auth)
-
-
-  useEffect(() => {
-    dispatch(fetchUser(authData.user._id))
-  }, [])
-
-  const { user } = useSelector((state) => state.user)
+  let { id } = useParams()
 
   return (
     <div>
       <Header />
       <MobileNav />
-      <ProfileC user={user} />
+      <ProfileC id={id} />
     </div>
   );
 }

@@ -1,0 +1,1 @@
+export const DEFAULT_PROFILE = "http://cdn.onlinewebfonts.com/svg/img_3595.png"

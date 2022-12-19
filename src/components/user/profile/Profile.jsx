@@ -1,19 +1,33 @@
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { GrEdit } from "react-icons/gr";
-import Posts from "./Posts";
 import ProfilePosts from "./ProfilePosts";
 import Saved from "./Saved";
 import ProfileEditModal from "./ProfileEditModal"
-// import FollowingAndFollowerModal from "./FollowingAndFollowerModal";
-const FollowingAndFollowerModal = React.lazy(() => import('./FollowingAndFollowerModal'))
+import { clearUser, fetchUser } from "../../../services/reducres/user/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 
-function Profile({ user }) {
+const Posts = React.lazy(() => import("./Posts"))
+const FollowingAndFollowerModal = React.lazy(() => import('./FollowingAndFollowerModal'))
+import { DEFAULT_PROFILE } from "../../../config"
+
+function Profile({ id }) {
   const [navigatePost, setNavigatePosts] = useState(true)
   const [navigateSaved, setNavigateSaved] = useState(true)
   const [open, setOpen] = useState(false)
   const [openFollower, setOpenFollower] = useState(false)
   const [openFollowing, setOpenFollowing] = useState(false)
   const [openFoModal, setOpenFoModal] = useState(false)
+
+  const dispatch = useDispatch()
+  const authData = useSelector((state) => state.auth)
+
+  useEffect(() => {
+    dispatch(fetchUser(id))
+  }, [open])
+
+
+  const { user } = useSelector((state) => state.user)
+
 
   const changePage = (page) => {
     if (page) {
@@ -31,16 +45,16 @@ function Profile({ user }) {
         <div className="w-32 h-32">
           <img
             className=" w-100 h-[100%] object-cover rounded-full"
-            src="https://i.pinimg.com/originals/3a/16/df/3a16df8d7ddb3840a57e5aadf79b8ee2.jpg"
+            src={user.profileUri ? `http://localhost:4000/${user.profileUri}` : DEFAULT_PROFILE}
             alt="profile"
           />
           <div className="absolute right-0 top-5">
-            <GrEdit onClick={() => setOpen((prev) => !prev)} />
+            {authData.user._id === user._id && <GrEdit onClick={() => setOpen((prev) => !prev)} />}
           </div>
         </div>
         <div className="w-100 flex flex-col items-center p-2">
           <h3 className="font-poppins font-bold text-lg">{user?.username}</h3>
-          <p className="font-poppins font-medium text-sm">something.........</p>
+          <p className="font-poppins font-medium text-sm">{user?.bio}</p>
 
           {/* stat*/}
           <div className="flex">
@@ -72,7 +86,9 @@ function Profile({ user }) {
       {/* posts */}
       <div className="md:w-[700px] lg:w-[1000px]">
         <ProfilePosts setPost={changePage} />
-        {navigatePost ? (<Posts user={user} />) : (<Saved user={user} />)}
+        {navigatePost ? (<Suspense fallback={<div>Loading...</div>}>
+          <Posts userId={id} />
+        </Suspense>) : (<Saved user={user} />)}
         <ProfileEditModal open={open} setOpen={setOpen} />
         <Suspense fallback={<div>Loading...</div>}>
           <FollowingAndFollowerModal userId={user._id} openFollower={openFollower} openFollowing={openFollowing} setOpenFollower={setOpenFollower} setOpenFollowing={setOpenFollowing} openFoModal={openFoModal} setOpenFoModal={setOpenFoModal} />

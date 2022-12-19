@@ -1,18 +1,29 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { editProfile } from "../../../services/reducres/user/userSlice"
+import { editProfile, reset } from "../../../services/reducres/user/userSlice"
 import { Input, Textarea } from "@material-tailwind/react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 export default function Example({ open, setOpen }) {
     const dispatch = useDispatch()
     const [formData, setFormData] = useState({ username: "", bio: "", profile: "" })
+    const { isLoading, isError } = useSelector((state) => state.user)
     const cancelButtonRef = useRef(null);
 
     async function handleSubmit(e) {
         e.preventDefault()
         dispatch(editProfile(formData))
     }
+
+    useEffect(() => {
+        if (!isLoading) {
+            setOpen(false)
+        }
+        if (!isError) {
+            dispatch(reset())
+        }
+    }, [isLoading, dispatch])
 
     return (
         <Transition.Root show={open} as={Fragment}>
@@ -70,9 +81,7 @@ export default function Example({ open, setOpen }) {
                                                             })
                                                         }} />
                                                     </div>
-                                                    {/* <div className="mb-3">
-                                                        <Input onChange={ } label="Email" />
-                                                    </div> */}
+
                                                     <div>
                                                         <input
                                                             type="file"
@@ -109,7 +118,7 @@ export default function Example({ open, setOpen }) {
                                             type="submit"
                                             className="inline-flex w-full justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
                                         >
-                                            Submit
+                                            {isLoading ? "Loading..." : "Submit"}
                                         </button>
                                         <button
                                             type="button"

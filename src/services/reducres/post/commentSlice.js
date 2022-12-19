@@ -39,6 +39,7 @@ export const postComments = createAsyncThunk("comment/post", async ({ postId, co
 
 
 export const deleteComments = createAsyncThunk("comment/delete", async (commentId, thunkAPI) => {
+  console.log("thunk commentId", commentId)
   try {
     const response = await deleteComment(commentId);
     return response.data;
@@ -54,10 +55,9 @@ export const deleteComments = createAsyncThunk("comment/delete", async (commentI
 
 export const likeAndDislike = createAsyncThunk(
   "comment/likeAndDislike",
-  async (commentId, thunkAPI) => {
-    console.log("com", commentId);
+  async (data, thunkAPI) => {
     try {
-      const response = await handleLikeAndDislike(commentId);
+      const response = await handleLikeAndDislike(data.commentId);
       return response.data;
     } catch (error) {
       const message =
@@ -100,7 +100,7 @@ const commentSlice = createSlice({
         state.isLoading = true
       })
       .addCase(postComments.fulfilled, (state, { payload }) => {
-        if (state.comments.length) {
+        if (state?.comments?.length) {
           state.comments = [...state.comments, payload.comment]
         } else {
           state.comments = [payload.comment]
@@ -112,10 +112,9 @@ const commentSlice = createSlice({
         state.message = action.payload;
       })
       .addCase(likeAndDislike.pending, (state, action) => {
-        console.log("action", action);
+        // console.log("action", action);
       })
       .addCase(likeAndDislike.fulfilled, (state, action) => {
-        console.log("payload", action.payload);
         state.comments.map((elem) => {
           if (elem.commentId == action.payload.commentId) {
             if (!elem.likes.includes(action.payload.userId)) {
@@ -134,7 +133,6 @@ const commentSlice = createSlice({
         state.message = action.payload;
       })
       .addCase(deleteComments.fulfilled, (state, { payload }) => {
-        console.log(payload.response);
         state.comments = [...state.comments.filter((comment) => {
           return comment.commentId !== payload.response.commentId
         })]
