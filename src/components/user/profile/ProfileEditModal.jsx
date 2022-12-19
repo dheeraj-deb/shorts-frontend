@@ -5,9 +5,9 @@ import { Input, Textarea } from "@material-tailwind/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
-export default function Example({ open, setOpen }) {
+export default function Example({ open, setOpen, user }) {
     const dispatch = useDispatch()
-    const [formData, setFormData] = useState({ username: "", bio: "", profile: "" })
+    const [formData, setFormData] = useState({ username: user.username, bio: user.bio, profile: "" })
     const { isLoading, isError } = useSelector((state) => state.user)
     const cancelButtonRef = useRef(null);
 
@@ -17,9 +17,9 @@ export default function Example({ open, setOpen }) {
     }
 
     useEffect(() => {
-        if (!isLoading) {
-            setOpen(false)
-        }
+        // if (isLoading) {
+        //     setOpen(false)   
+        // }
         if (!isError) {
             dispatch(reset())
         }
@@ -68,14 +68,14 @@ export default function Example({ open, setOpen }) {
                                             <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                                                 <div>
                                                     <div className="mb-3">
-                                                        <Input label="Username" name="username" onChange={(e) => {
+                                                        <Input label="Username" name="username" value={formData.username} onChange={(e) => {
                                                             setFormData((prev) => {
                                                                 return { ...prev, username: e.target.value }
                                                             })
                                                         }} />
                                                     </div>
                                                     <div className="mb-3">
-                                                        <Textarea label="Bio" name="bio" onChange={(e) => {
+                                                        <Textarea label="Bio" name="bio" value={formData.bio} onChange={(e) => {
                                                             setFormData((prev) => {
                                                                 return { ...prev, bio: e.target.value }
                                                             })

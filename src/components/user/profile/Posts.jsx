@@ -4,13 +4,14 @@ import PostModal from "./PostModal"
 import { Spinner } from "../index"
 import { STREAM_API } from "../../../config"
 
-function Posts({ userId }) {
+function Posts({ user }) {
     const [isLoading, setIsLoading] = useState(true)
     const [videos, setVideos] = useState([]);
     const [showVideo, setShowVideo] = useState({ status: false, videoId: "" })
 
     const fetchUserPosts = async () => {
-        const { data } = await axios.get(`/user/posts/${userId}`);
+        const { data } = await axios.get(`/user/posts/${user._id}`);
+        console.log(data);
         setVideos(data.posts);
     };
 

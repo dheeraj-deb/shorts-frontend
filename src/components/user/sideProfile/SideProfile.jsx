@@ -7,6 +7,7 @@ import { GrEdit } from "react-icons/gr";
 import { Button } from "@material-tailwind/react";
 
 function SideProfile({ user }) {
+  const navigate = useNavigate()
   const handleLogout = () => dispatch(logout());
 
   return (
@@ -54,7 +55,7 @@ function SideProfile({ user }) {
             fontFamily: "Poppins",
           }}
           onClick={() => {
-            navigate('/my-profile')
+            navigate(`/profile/${user._id}`)
           }}
         >
           Profile

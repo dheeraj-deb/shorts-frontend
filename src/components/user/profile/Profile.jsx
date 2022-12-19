@@ -8,12 +8,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { DEFAULT_PROFILE, PROFILE_API } from "../../../config"
 
-const Posts = React.lazy(() => import("./Posts"))
+import Posts from "./Posts"
 const FollowingAndFollowerModal = React.lazy(() => import('./FollowingAndFollowerModal'))
 
 function Profile({ id }) {
   const [navigatePost, setNavigatePosts] = useState(true)
-  const [navigateSaved, setNavigateSaved] = useState(true)
   const [open, setOpen] = useState(false)
   const [openFollower, setOpenFollower] = useState(false)
   const [openFollowing, setOpenFollowing] = useState(false)
@@ -50,7 +49,14 @@ function Profile({ id }) {
             alt="profile"
           />
           <div className="absolute right-0 top-5">
-            {authData.user._id === user._id && <GrEdit onClick={() => setOpen((prev) => !prev)} />}
+            {authData.user._id === user._id && <GrEdit onClick={() => {
+              console.log("clicked");
+              setOpen((prev) => {
+                console.log("prev", prev);
+                return !prev
+              })
+            }} />}
+            {console.log("open", open)}
           </div>
         </div>
         <div className="w-100 flex flex-col items-center p-2">
@@ -87,10 +93,10 @@ function Profile({ id }) {
       {/* posts */}
       <div className="md:w-[700px] lg:w-[1000px]">
         <ProfilePosts setPost={changePage} />
-        {navigatePost ? (<Suspense fallback={<div>Loading...</div>}>
-          <Posts userId={id} />
-        </Suspense>) : (<Saved user={user} />)}
-        <ProfileEditModal open={open} setOpen={setOpen} />
+        {navigatePost ? (
+          <Posts user={user} />
+        ) : (<Saved user={user} />)}
+        <ProfileEditModal open={open} setOpen={setOpen} user={user} />
         <Suspense fallback={<div>Loading...</div>}>
           <FollowingAndFollowerModal userId={user._id} openFollower={openFollower} openFollowing={openFollowing} setOpenFollower={setOpenFollower} setOpenFollowing={setOpenFollowing} openFoModal={openFoModal} setOpenFoModal={setOpenFoModal} />
         </Suspense>
