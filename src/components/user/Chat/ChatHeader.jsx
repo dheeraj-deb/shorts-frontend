@@ -1,4 +1,5 @@
 import React from 'react'
+import { DEFAULT_PROFILE, PROFILE_API } from '../../../config'
 
 function ChatHeader({ user }) {
     return (
@@ -8,13 +9,13 @@ function ChatHeader({ user }) {
                 <div className="mr-2">
                     <img
                         className="w-[40px] h-[40px] object-cover rounded-full"
-                        src="https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg"
+                        src={user.profileUri ? `${PROFILE_API}${user.profileUri}` : DEFAULT_PROFILE}
                         alt="profile"
                     />
                 </div>
                 <div className=" w-[100%] flex justify-between items-center">
                     <h4 className="font-poppins font-normal">{user?.username}</h4>
-                    <p>options</p>
+                    <p></p>
                 </div>
             </div>
         </div>

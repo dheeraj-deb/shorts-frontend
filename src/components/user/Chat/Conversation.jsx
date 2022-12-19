@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { DEFAULT_PROFILE, PROFILE_API } from '../../../config'
 import { getUser } from '../../../services/api/UserRequestes'
 
 function Conversation({ data, currentUser, online }) {
@@ -33,7 +34,7 @@ function Conversation({ data, currentUser, online }) {
                 <div className="mr-2">
                     <img
                         className="w-[40px] h-[40px] object-cover rounded-full"
-                        src="https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg"
+                        src={user.profileUri ? `${PROFILE_API}${user.profileUri}` : DEFAULT_PROFILE}
                         alt="profile"
                     />
                 </div>
