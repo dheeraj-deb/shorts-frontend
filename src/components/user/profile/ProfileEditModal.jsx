@@ -8,7 +8,7 @@ import { useEffect } from "react";
 export default function Example({ open, setOpen, user }) {
     const dispatch = useDispatch()
     const [formData, setFormData] = useState({ username: user.username, bio: user.bio, profile: "" })
-    const { isLoading, isError } = useSelector((state) => state.user)
+    const { isLoading, isError, initial } = useSelector((state) => state.user)
     const cancelButtonRef = useRef(null);
 
     async function handleSubmit(e) {
@@ -17,9 +17,9 @@ export default function Example({ open, setOpen, user }) {
     }
 
     useEffect(() => {
-        // if (isLoading) {
-        //     setOpen(false)   
-        // }
+        if (!isLoading && !initial) {
+            setOpen(false)
+        }
         if (!isError) {
             dispatch(reset())
         }

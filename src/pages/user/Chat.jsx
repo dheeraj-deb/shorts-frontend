@@ -92,6 +92,7 @@ function Chat() {
               }}
             >
               <Conversation
+                user={user}
                 data={chat}
                 currentUser={user._id}
                 online={checkOnlineStatus(chat)}

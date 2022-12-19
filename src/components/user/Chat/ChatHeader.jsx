@@ -9,7 +9,7 @@ function ChatHeader({ user }) {
                 <div className="mr-2">
                     <img
                         className="w-[40px] h-[40px] object-cover rounded-full"
-                        src={user.profileUri ? `${PROFILE_API}${user.profileUri}` : DEFAULT_PROFILE}
+                        src={user?.profileUri ? `${PROFILE_API}${user?.profileUri}` : DEFAULT_PROFILE}
                         alt="profile"
                     />
                 </div>

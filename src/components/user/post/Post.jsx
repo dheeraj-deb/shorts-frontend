@@ -151,7 +151,7 @@ function Post({ post, isLoading, user, setSaved }) {
               onClick={() => setIsCommentOn(isCommentOn ? false : true)}
             />
           </div>
-          <FiShare2 fontSize={22} className="self-start mr-2" />
+          {/* <FiShare2 fontSize={22} className="self-start mr-2" /> */}
         </div>
         <div className="w-100 px-2">
           <p className="text-sm text-left">{post.likes.length}</p>

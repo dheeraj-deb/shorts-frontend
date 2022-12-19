@@ -9,6 +9,7 @@ const initialState = {
     isSuccess: false,
     isLoading: false,
     message: "",
+    initial: true
 };
 
 const config = {
@@ -97,15 +98,17 @@ export const userSlice = createSlice({
             .addCase(editProfile.fulfilled, (state, { payload }) => {
                 state.isLoading = false
                 state.isSuccess = true
+                state.initial = false
                 state.user = payload
             })
             .addCase(editProfile.rejected, (state, { payload }) => {
+                state.isLoading = false
                 state.isError = true
                 state.message = payload
-                console.log(payload);
+                state.initial = false
             })
     },
 });
 
-export const { reset, removePostFromUser, clearUser} = userSlice.actions;
+export const { reset, removePostFromUser, clearUser } = userSlice.actions;
 export default userSlice.reducer;

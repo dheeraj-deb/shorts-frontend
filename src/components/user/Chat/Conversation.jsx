@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { DEFAULT_PROFILE, PROFILE_API } from '../../../config'
 import { getUser } from '../../../services/api/UserRequestes'
 
-function Conversation({ data, currentUser, online }) {
+function Conversation({ data, currentUser, online, user }) {
 
 
     const [userData, setUserData] = useState(null)
@@ -34,7 +34,7 @@ function Conversation({ data, currentUser, online }) {
                 <div className="mr-2">
                     <img
                         className="w-[40px] h-[40px] object-cover rounded-full"
-                        src={user.profileUri ? `${PROFILE_API}${user.profileUri}` : DEFAULT_PROFILE}
+                        src={user?.profileUri ? `${PROFILE_API}${user?.profileUri}` : DEFAULT_PROFILE}
                         alt="profile"
                     />
                 </div>
