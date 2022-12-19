@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom"
 import { logout } from "../../../services/reducres/user/authSlice";
 import { DEFAULT_PROFILE, PROFILE_API } from "../../../config"
@@ -7,6 +7,7 @@ import { GrEdit } from "react-icons/gr";
 import { Button } from "@material-tailwind/react";
 
 function SideProfile({ user }) {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const handleLogout = () => dispatch(logout());
 
