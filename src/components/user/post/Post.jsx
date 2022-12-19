@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef, Suspense } from "react";
 import { useDispatch } from "react-redux";
 import { format } from "timeago.js";
-import { DEFAULT_PROFILE } from "../../../config"
+import { DEFAULT_PROFILE, STREAM_API, PROFILE_API } from "../../../config"
 
 import { AiOutlineHeart } from "react-icons/ai";
 import { FaRegComment } from "react-icons/fa";
@@ -107,7 +107,7 @@ function Post({ post, isLoading, user, setSaved }) {
           <div className="w-[45px] h-[45px] mr-2">
             <img
               className="w-[100%] h-[100%] relative object-cover rounded-full"
-              src={post.user[0].profileUri ? `http://localhost:4000/${post.user[0].profileUri}` : DEFAULT_PROFILE}
+              src={post.user[0].profileUri ? `${PROFILE_API}${post.user[0].profileUri}` : DEFAULT_PROFILE}
               alt=""
             />
           </div>
@@ -118,7 +118,7 @@ function Post({ post, isLoading, user, setSaved }) {
       <section className="h-[200px] md:h-[300px]" ref={ref}>
         <video
           className="w-[100%] h-[100%] object-cover "
-          src={`http://localhost:4000/shorts/api/stream/${post?._id}`}
+          src={`${STREAM_API}${post?._id}`}
           type="video/mp4"
           loop={true}
           ref={videoRef}

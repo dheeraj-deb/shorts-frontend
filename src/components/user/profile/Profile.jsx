@@ -6,6 +6,8 @@ import ProfileEditModal from "./ProfileEditModal"
 import { clearUser, fetchUser } from "../../../services/reducres/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 
+import { DEFAULT_PROFILE, PROFILE_API } from "../../../config"
+
 const Posts = React.lazy(() => import("./Posts"))
 const FollowingAndFollowerModal = React.lazy(() => import('./FollowingAndFollowerModal'))
 import { DEFAULT_PROFILE } from "../../../config"
@@ -45,7 +47,7 @@ function Profile({ id }) {
         <div className="w-32 h-32">
           <img
             className=" w-100 h-[100%] object-cover rounded-full"
-            src={user.profileUri ? `http://localhost:4000/${user.profileUri}` : DEFAULT_PROFILE}
+            src={user.profileUri ? `${PROFILE_API}${user.profileUri}` : DEFAULT_PROFILE}
             alt="profile"
           />
           <div className="absolute right-0 top-5">

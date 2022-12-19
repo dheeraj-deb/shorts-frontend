@@ -2,11 +2,9 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom"
 import { logout } from "../../../services/reducres/user/authSlice";
-
+import { DEFAULT_PROFILE, PROFILE_API } from "../../../config"
 import { GrEdit } from "react-icons/gr";
 import { Button } from "@material-tailwind/react";
-
-import { DEFAULT_PROFILE } from "../../../config"
 
 function SideProfile({ user }) {
   const handleLogout = () => dispatch(logout());
@@ -22,7 +20,7 @@ function SideProfile({ user }) {
         <div className="flex justify-center mb-2">
           <img
             className="w-[100px] h-[100px] object-cover rounded-full"
-            src={user.profileUri ? `http://localhost:4000/${user.profileUri}` : DEFAULT_PROFILE}
+            src={user.profileUri ? `${PROFILE_API}${user.profileUri}` : DEFAULT_PROFILE}
             alt="profile"
           />
         </div>

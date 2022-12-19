@@ -5,6 +5,7 @@ import { DEFAULT_PROFILE } from "../../../config"
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@material-tailwind/react";
 
+import { DEFAULT_PROFILE, PROFILE_API } from "../../../config"
 
 function SuggestionCard({ user }) {
 
@@ -29,7 +30,7 @@ function SuggestionCard({ user }) {
         <div className="mr-2">
           <img
             className="w-[50px] h-[40px] object-cover rounded-full"
-            src={user.profileUri ? `http://localhost:4000/${user.profileUri}` : DEFAULT_PROFILE}
+            src={user.profileUri ? `${PROFILE_API}${user.profileUri}` : DEFAULT_PROFILE}
             alt="profile"
           />
         </div>

@@ -16,7 +16,7 @@ import { findPostById, savePost } from "../../../services/api/UserRequestes"
 import { deletePost, likeAndDislike } from "../../../services/reducres/post/postSlice"
 import { removePostFromUser } from '../../../services/reducres/user/userSlice';
 import { useRef } from 'react';
-import { DEFAULT_PROFILE } from '../../../config';
+import { DEFAULT_PROFILE, DEFAULT_API, STREAM_API, PROFILE_API } from '../../../config';
 
 function Post({ postId, user, setShowVideo }) {
     const dispatch = useDispatch()
@@ -111,7 +111,7 @@ function Post({ postId, user, setShowVideo }) {
                         <div className="w-[45px] h-[45px] mr-2">
                             <img
                                 className="w-[100%] h-[100%] relative object-cover rounded-full"
-                                src={user.profileUri ? `http://localhost:4000/${user.profileUri}` : DEFAULT_PROFILE}
+                                src={user.profileUri ? `${PROFILE_API}${user.profileUri}` : DEFAULT_PROFILE}
                                 alt=""
                             />
                         </div>
@@ -123,7 +123,7 @@ function Post({ postId, user, setShowVideo }) {
                     <video
                         controls
                         className="w-[100%] h-[100%] object-cover "
-                        src={`http://localhost:4000/shorts/api/stream/${post?._id}`}
+                        src={`${STREAM_API}${post?._id}`}
                         type="video/mp4"
                         loop={true}
                         onLoad

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from "../../../util/Axios"
 import Spinner from '../../Spinner';
 import PostModal from "./PostModal"
-
+import { STREAM_API } from "../../../config"
 function Saved({ user }) {
   const [isLoading, setIsLoading] = useState(true)
   const [videos, setVideos] = useState([]);
@@ -10,7 +10,6 @@ function Saved({ user }) {
 
   const fetchSavedPost = async () => {
     const { data } = await axios.get(`/saved-post`);
-    console.log("dddddd", data);
     setVideos(data);
   };
 
@@ -34,10 +33,9 @@ function Saved({ user }) {
           <div className='grid overflow-hidden grid-cols-1 px-1 md:px-0 md:grid-cols-3 gap-2 w-4/4'>
             {
               videos?.map((video) => {
-                console.log("videeeeee", video);
                 return (
                   <div key={video.saved._id} className="relative">
-                    <video src={`https://shortsmedium.ml/shorts/api/stream/${video.saved._id}`} onClick={() => handleDetailView(video?.saved?._id)} />
+                    <video src={`${STREAM_API}${video.saved._id}`} onClick={() => handleDetailView(video?.saved?._id)} />
                     <p className='font-poppins absolute bottom-1 right-1 text-gray-300 font-medium text-xs'>{video?.saved?.likes?.length} likes</p>
                   </div>
                 )
