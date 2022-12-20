@@ -7,6 +7,7 @@ import {
 import SignUp from "../pages/auth/signUp/SignUp";
 import SignIn from "../pages/auth/signIn/SignIn";
 import Home from "../pages/user/Home";
+import SuggestionSm from "../pages/user/SuggestionSm"
 import FileUpload from "../pages/user/FileUpload";
 import { ToastContainer } from "react-toastify";
 import Chat from "../pages/user/Chat";
@@ -25,6 +26,7 @@ function UserRoutes() {
           <Route path="/file-upload" element={user ? <FileUpload /> : <Navigate to="/login" />} />
           <Route path="/message" element={user ? <Chat /> : <Navigate to="/login" />} />
           {/* <Route path="/my-profile" element={user ? <Profile /> : <Navigate to="/login" />} /> */}
+          <Route path="/suggested-users" element={user ? <SuggestionSm /> : <Navigate to="/login" />} />
           <Route path="/profile/:id" element={<Profile />} />
         </Routes>
       </Router>

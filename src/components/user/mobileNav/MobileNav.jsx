@@ -1,5 +1,6 @@
 import React from "react";
 import { HomeIcon, MessageIcon, CameraIcon, SettingsIcon, PlusIcon, ProfileIcon } from "../../Icons"
+import { AiOutlineUsergroupAdd } from "react-icons/ai"
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 const MobileNav = () => {
@@ -18,6 +19,13 @@ const MobileNav = () => {
             </Link>
           </li>
           <li className="relative list-none w-[70px] h-[70px] z-1">
+            <Link to='/suggested-users' className="relative flex justify-center items-center flex-col w-[100%] h-[70px] transition duration-150 hover:-translate-y-4">
+              <span className="relative block ">
+                <AiOutlineUsergroupAdd size={25} style={{ color: "#fff" }} />
+              </span>
+            </Link>
+          </li>
+          <li className="relative list-none w-[70px] h-[70px] z-1">
             <Link to='/message' className="relative flex justify-center items-center flex-col w-[100%] h-[70px] transition duration-150 hover:-translate-y-4">
               <span className="relative block ">
                 <MessageIcon style={{ color: "#fff" }} />
@@ -31,15 +39,8 @@ const MobileNav = () => {
               </span>
             </Link>
           </li>
-          {/* <li className="relative list-none w-[70px] h-[70px] z-1">
-            <Link to='/live' className="relative flex justify-center items-center flex-col w-[100%] h-[70px] transition duration-150 hover:-translate-y-4">
-              <span className="relative block ">
-                <CameraIcon style={{ color: "#fff" }} />
-              </span>
-            </Link>
-          </li> */}
           <li className="relative list-none w-[70px] h-[70px] z-1">
-            <Link to={`/profile${user?._id}`} className="relative flex justify-center items-center flex-col w-[100%] h-[70px] transition duration-150 hover:-translate-y-4">
+            <Link to={`/profile/${user?._id}`} className="relative flex justify-center items-center flex-col w-[100%] h-[70px] transition duration-150 hover:-translate-y-4">
               <span className="relative block ">
                 <ProfileIcon style={{ color: "#fff" }} />
               </span>

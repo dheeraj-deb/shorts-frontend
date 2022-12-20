@@ -55,9 +55,9 @@ const Header = () => {
           }}>Login</button>
         )}
       </div>
-      <Link to="/settings" className="block md:hidden">
+      {/* <Link to="/settings" className="block md:hidden">
         <SettingsIcon style={{ color: "#fff" }} className="ml-6 " />
-      </Link>
+      </Link> */}
     </div>
   );
 };
