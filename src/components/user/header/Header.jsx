@@ -55,9 +55,13 @@ const Header = () => {
           }}>Login</button>
         )}
       </div>
-      {/* <Link to="/settings" className="block md:hidden">
-        <SettingsIcon style={{ color: "#fff" }} className="ml-6 " />
-      </Link> */}
+      <div className="block md:hidden">
+        {!user ? (
+          <button className="px-2 bg-white rounded ml-6 font-poppins" onClick={() => {
+            navigate("/login")
+          }}>Login</button>
+        ) : null}
+      </div>
     </div>
   );
 };
