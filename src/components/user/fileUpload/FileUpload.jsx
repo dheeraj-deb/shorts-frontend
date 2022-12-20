@@ -32,8 +32,8 @@ function FileUpload() {
     }
 
     if (isSuccess) {
-      toast("post uploaded successfully");
       navigate("/");
+      toast("post uploaded successfully");
       dispatch(reset());
     }
   }, [post, isLoading, isSuccess, isError, message]);

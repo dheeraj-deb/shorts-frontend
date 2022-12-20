@@ -107,11 +107,12 @@ function Post({ post, isLoading, user, setSaved }) {
           <div className="w-[45px] h-[45px] mr-2">
             <img
               className="w-[100%] h-[100%] relative object-cover rounded-full"
-              src={post.user[0].profileUri ? `${PROFILE_API}${post.user[0].profileUri}` : DEFAULT_PROFILE}
+              src={post?.user ? post?.user[0]?.profileUri ? `${PROFILE_API}${post?.user[0]?.profileUri}` : DEFAULT_PROFILE : null}
+              // post?.user[0]?.profileUri ? `${PROFILE_API}${post?.user[0]?.profileUri}` : DEFAULT_PROFILE
               alt=""
             />
           </div>
-          <h4>{post?.user ? post.user[0]?.username : ""}</h4>
+          <h4>{post?.user ? post?.user[0]?.username : ""}</h4>
         </div>
         {user ? <DropDown options={(post?.postedBy == user?._id) ? options : options1} postId={post?._id} /> : null}
       </section>
@@ -127,8 +128,8 @@ function Post({ post, isLoading, user, setSaved }) {
         />
       </section>
       <section className="w-100  px-2">
-        <h3>{post.title}</h3>
-        <p className="text-xs">{post.description}</p>
+        <h3>{post?.title}</h3>
+        <p className="text-xs">{post?.description}</p>
       </section>
       <section className="w-100  p-2 py-3">
         <div className="flex items-center justify-between ">
