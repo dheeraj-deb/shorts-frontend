@@ -7,7 +7,7 @@ import "./ChatBox.scss"
 import { getUser } from '../../../services/api/UserRequestes';
 import { addMessage, getMessages } from '../../../services/api/MessageRequests';
 
-function ChatBox({ chat, currentUser, setSendMessage, receivedMessage }) {
+function ChatBox({ chat, currentUser, setSendMessage, receivedMessage, setShowMessageInSm }) {
 
     const [userData, setUserData] = useState(null);
     const [messages, setMessages] = useState([]);
@@ -92,7 +92,7 @@ function ChatBox({ chat, currentUser, setSendMessage, receivedMessage }) {
             {
                 chat ? (
                     <div>
-                        <ChatHeader user={userData} />
+                        <ChatHeader user={userData} setShowMessageInSm={setShowMessageInSm}/>
                         <div className='flex flex-col overflow-scroll h-[450px] bg-white mb-2 rounded-md mt-2 p-2'>
                             {messages.map((message) => (
                                 <>

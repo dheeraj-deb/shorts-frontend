@@ -18,7 +18,7 @@ function Layout({ left, children, right }) {
     <div>
       <Header />
       <MobileNav />
-      <div className="w-100 pt-[4.5rem] px-4 pr-2 md:pr-0 flex justify-center space-x-2.5">
+      <div className="w-100 pt-[4.5rem] pl-0 px-4 pr-2 md:pr-0 flex justify-center space-x-2.5">
         {authData.user ? (<div className="w-72 hidden md:block relative">{left}</div>) : (null)}
         <div className=" w-[100%] md:w-2/4 mb-20 px-2 relative">{children}</div>
         {authData.user ? (<div className="hidden w-72 lg:block relative">{ }</div>) : (null)}

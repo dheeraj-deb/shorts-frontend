@@ -7,7 +7,6 @@ function Conversation({ data, currentUser, online, user }) {
 
 
     const [userData, setUserData] = useState(null)
-    const dispatch = useDispatch()
 
     useEffect(() => {
 

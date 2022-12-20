@@ -11,11 +11,9 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
 import { userChats } from "../../services/api/ChatRequests";
-import { getUser } from "../../services/api/UserRequestes";
 
 function Chat() {
 
-  const dispatch = useDispatch();
   const socket = useRef();
   const { user } = useSelector((state) => state.auth);
 
@@ -25,6 +23,7 @@ function Chat() {
   const [currentChat, setCurrentChat] = useState(null);
   const [sendMessage, setSendMessage] = useState(null);
   const [receivedMessage, setReceivedMessage] = useState(null);
+  const [showMessageInSm, setShowMessageInSm] = useState(false)
 
   // Get the chat in chat section
   useEffect(() => {
@@ -79,7 +78,7 @@ function Chat() {
       <Header />
       <MobileNav />
       <div className="pt-[4.5rem] px-2 flex relative">
-        <div className=" w-[100%] md:w-1/4 bg-white px-2 py-1">
+        <div className={`w-[100%] md:w-1/4 bg-white px-2 py-1 md:block ${showMessageInSm ? `hidden` : 'block'}`}>
           <div className="flex items-center mb-4">
             <BiSearchAlt size={20} className="mlr-2" />
             <input onChange={(e) => handleChange(e.target.value)} className="p-2 outline-none w-[100%] bg-gray-100 rounded-lg" type="search" placeholder="Search user.." />
@@ -87,8 +86,8 @@ function Chat() {
           {chats?.map((chat) => (
             <div
               onClick={() => {
-
                 setCurrentChat(chat);
+                setShowMessageInSm(true)
               }}
             >
               <Conversation
@@ -100,18 +99,13 @@ function Chat() {
             </div>
           ))}
         </div>
-        <div className="w-3/4 bg-transparent hidden md:block px-2 py-1 relative">
+        <div className={`md:w-3/4 w-[100%] bg-transparent md:block ${showMessageInSm ? 'block' : 'hidden'} md:block px-2 py-1 relative`}>
           <ChatBox chat={currentChat}
+            setShowMessageInSm={setShowMessageInSm}
             currentUser={user._id}
             setSendMessage={setSendMessage}
             receivedMessage={receivedMessage} />
         </div>
-        {/* <div className="md:hidden">
-          <ChatBox  chat={currentChat}
-          currentUser={user._id}
-          setSendMessage={setSendMessage}
-          receivedMessage={receivedMessage}/>
-        </div> */}
       </div>
     </>
   );
