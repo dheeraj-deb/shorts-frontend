@@ -3,7 +3,7 @@ import { GrEdit } from "react-icons/gr";
 import ProfilePosts from "./ProfilePosts";
 import Saved from "./Saved";
 import ProfileEditModal from "./ProfileEditModal"
-import { clearUser, fetchUser } from "../../../services/reducres/user/userSlice";
+import { fetchUser } from "../../../services/reducres/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 import { DEFAULT_PROFILE, PROFILE_API } from "../../../config"
@@ -56,7 +56,6 @@ function Profile({ id }) {
                 return !prev
               })
             }} />}
-            {console.log("open", open)}
           </div>
         </div>
         <div className="w-100 flex flex-col items-center p-2">

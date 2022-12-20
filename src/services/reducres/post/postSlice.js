@@ -114,7 +114,6 @@ const postSlice = createSlice({
         state.isSuccess = false;
       })
       .addCase(createPost.fulfilled, (state, { payload }) => {
-        console.log(payload)
         state.isLoading = false;
         state.post ? state.post = [...state.post, payload.response] : state.post = [payload.response]
         state.isSuccess = true;
@@ -161,7 +160,6 @@ const postSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(deletePost.fulfilled, (state, action) => {
-        console.log(action);
         state.isLoading = false;
         state.isSuccess = true;
         state.post = state.post.filter((elem) => {

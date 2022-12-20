@@ -60,7 +60,6 @@ function SignUp() {
   const handleSignup = async (data) => {
     try {
       const response = await AxiosReq.post("/auth/user/signup", data);
-      console.log(response);
       if (response) {
         navigate("/login");
       }

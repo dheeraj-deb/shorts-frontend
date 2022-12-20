@@ -61,7 +61,6 @@ function Post({ post, isLoading, user, setSaved }) {
 
   const handlePlayPause = () => {
     setPlay((prev) => !prev)
-    console.log(play);
   }
 
 

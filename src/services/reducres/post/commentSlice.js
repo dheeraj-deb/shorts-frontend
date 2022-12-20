@@ -24,7 +24,6 @@ export const getComment = createAsyncThunk("comment/get", async (postId, thunkAP
 })
 
 export const postComments = createAsyncThunk("comment/post", async ({ postId, comment }, thunkAPI) => {
-  console.log(postId, comment);
   try {
     const response = await postComment(postId, comment);
     return response.data;
@@ -39,7 +38,6 @@ export const postComments = createAsyncThunk("comment/post", async ({ postId, co
 
 
 export const deleteComments = createAsyncThunk("comment/delete", async (commentId, thunkAPI) => {
-  console.log("thunk commentId", commentId)
   try {
     const response = await deleteComment(commentId);
     return response.data;

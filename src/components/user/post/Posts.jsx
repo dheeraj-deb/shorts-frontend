@@ -43,9 +43,7 @@ function Posts() {
     }
   }, [isLoading, isSuccess, message, isError]);
 
-  // useEffect(() => {
-  //   dispatch(searchPosts())
-  // }, [])
+
 
 
   return (

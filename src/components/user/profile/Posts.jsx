@@ -11,7 +11,6 @@ function Posts({ user }) {
 
     const fetchUserPosts = async () => {
         const { data } = await axios.get(`/user/posts/${user._id}`);
-        console.log(data);
         setVideos(data.posts);
     };
 

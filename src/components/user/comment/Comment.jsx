@@ -8,6 +8,7 @@ import { Input, Button } from "@material-tailwind/react";
 // import InputEmoji from "react-input-emoji";
 
 import Spinner from "../../Spinner"
+import { toast } from "react-toastify";
 
 function Comment({ postId, user }) {
 
@@ -43,7 +44,6 @@ function Comment({ postId, user }) {
 
 
   const handleComment = () => {
-    console.log("comm", comment)
     dispatch(postComments({ postId, comment }))
   };
 
@@ -63,7 +63,7 @@ function Comment({ postId, user }) {
 
   useEffect(() => {
     if (isError) {
-      console.log(message);
+      toast(message)
     }
     getComments();
     dispatch(reset())
