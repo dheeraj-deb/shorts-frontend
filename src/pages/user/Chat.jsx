@@ -41,7 +41,7 @@ function Chat() {
 
   // Connect to Socket.io
   useEffect(() => {
-    socket.current = io("https://shortsmedium.ml/");
+    socket.current = io("ws://localhost:8080");
     socket.current.emit("new-user-add", user._id);
     socket.current.on("get-users", (users) => {
       setOnlineUsers(users);
@@ -61,9 +61,7 @@ function Chat() {
     socket.current.on("recieve-message", (data) => {
       console.log(data)
       setReceivedMessage(data);
-    }
-
-    );
+    });
   }, []);
 
 

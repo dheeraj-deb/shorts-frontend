@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom"
 import { followAndUnFollow } from "../../../services/reducres/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@material-tailwind/react";
 
 import { DEFAULT_PROFILE, PROFILE_API } from "../../../config"
+import { createNotification } from "../../../services/api/UserRequestes";
+import { io } from "socket.io-client";
 
 function SuggestionCard({ user }) {
 
   const navigate = useNavigate()
-
   const dispatch = useDispatch();
+  const socket = useRef()
+  const [sendNotification, setSendNotification] = useState({})
   const current = useSelector((state) => state.user)
 
   const handleFollowUnFollow = () => {
@@ -21,6 +24,19 @@ function SuggestionCard({ user }) {
   const viewUser = (userId) => {
     navigate(`/profile/${userId}`)
   }
+
+
+  useEffect(() => {
+    socket.current = io("ws://localhost:8080");
+    socket.current.emit("new-user-add", user._id);
+  }, []);
+
+  // Send Notification to socket server
+  useEffect(() => {
+    if (sendNotification !== null) {
+      socket.current.emit("send-notification", sendNotification);
+    }
+  }, [sendNotification]);
 
   return (
     <div className="w-100 p-1 border border-gray-100">
@@ -38,7 +54,11 @@ function SuggestionCard({ user }) {
           {current?.user?.following?.includes(user._id) ? (
             <Button onClick={handleFollowUnFollow} size='sm' color="red">UnFollow</Button>
           ) : (
-            <Button onClick={handleFollowUnFollow} size='sm'>Follow</Button>
+            <Button onClick={() => {
+              handleFollowUnFollow()
+              createNotification(user._id)
+              setSendNotification({ userTwo: user._id, userOne: current.user._id })
+            }} size='sm'>Follow</Button>
           )}
         </div>
       </div>

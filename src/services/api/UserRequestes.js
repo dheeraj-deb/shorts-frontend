@@ -23,3 +23,7 @@ export const getSavedPosts = (id) => Axios.get('/saved-post')
 export const getFollowers = (id) => Axios.get(`/user/followers/${id}`)
 
 export const getFollowing = (id) => Axios.get(`/user/following/${id}`)
+
+export const createNotification = (id) => Axios.post(`/user/notification/${id}`)
+
+export const fetchNotifications = (id) => Axios.get(`/user/notifications/${id}`)
