@@ -17,7 +17,7 @@ function SuggestionCard({ user }) {
   const current = useSelector((state) => state.user)
 
   const handleFollowUnFollow = () => {
-    dispatch(followAndUnFollow(user._id));
+    dispatch(followAndUnFollow(user?._id));
   };
 
 
@@ -27,8 +27,8 @@ function SuggestionCard({ user }) {
 
 
   useEffect(() => {
-    socket.current = io("ws://localhost:8080");
-    socket.current.emit("new-user-add", user._id);
+    socket.current = io("https://shortsmedium.ml");
+    socket.current.emit("new-user-add", user?._id);
   }, []);
 
   // Send Notification to socket server

@@ -23,13 +23,13 @@ function Notification() {
         };
         getNotification();
 
-    }, [user._id]);
+    }, [user?._id]);
 
 
     // Connect to Socket.io
     useEffect(() => {
-        socket.current = io("ws://localhost:8080");
-        socket.current.emit("new-user-add", user._id);
+        socket.current = io("https://shortsmedium.ml");
+        socket.current.emit("new-user-add", user?._id);
     }, [user]);
 
     // Get the notification from socket server
