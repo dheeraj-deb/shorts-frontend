@@ -93,7 +93,7 @@ function ChatBox({ chat, currentUser, setSendMessage, receivedMessage, setShowMe
                 chat ? (
                     <div>
                         <ChatHeader user={userData} setShowMessageInSm={setShowMessageInSm} />
-                        <div className='flex flex-col overflow-scroll h-[450px] bg-white mb-2 rounded-md mt-2 p-2'>
+                        <div className='flex flex-col overflow-scroll h-[400px] md:h-[450px] bg-white mb-2 rounded-md mt-2 p-2'>
                             {messages.map((message) => (
                                 <>
                                     <div ref={scroll}
