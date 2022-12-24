@@ -15,7 +15,7 @@ function Notification() {
     useEffect(() => {
         const getNotification = async () => {
             try {
-                const { data } = await fetchNotifications(user._id);
+                const { data } = await fetchNotifications(user?._id);
                 setNotifications(data);
             } catch (error) {
                 console.log(error);
@@ -35,7 +35,6 @@ function Notification() {
     // Get the notification from socket server
     useEffect(() => {
         socket.current.on("receive-notification", (data) => {
-            console.log(data)
             setReceivedNotification(data);
         });
     }, []);
