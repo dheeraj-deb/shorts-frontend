@@ -92,7 +92,7 @@ function ChatBox({ chat, currentUser, setSendMessage, receivedMessage, setShowMe
             {
                 chat ? (
                     <div>
-                        <ChatHeader user={userData} setShowMessageInSm={setShowMessageInSm}/>
+                        <ChatHeader user={userData} setShowMessageInSm={setShowMessageInSm} />
                         <div className='flex flex-col overflow-scroll h-[450px] bg-white mb-2 rounded-md mt-2 p-2'>
                             {messages.map((message) => (
                                 <>
@@ -110,7 +110,7 @@ function ChatBox({ chat, currentUser, setSendMessage, receivedMessage, setShowMe
                                 </>
                             ))}
                         </div>
-                        <div className='bg-white  px-2 py-1 flex justify-between rounded-md fixed bottom-1 w-[73%]'>
+                        <div className='bg-white  px-2 py-1 pb-[5rem] md:pb-0 flex justify-between rounded-md fixed bottom-1 w-[90%] md:w-[73%]'>
                             <input className='w-[100%] px-2 outline-none' value={newMessage} onChange={(e) => {
                                 setNewMessage(e.target.value)
                             }} type="text" placeholder='text something....' />
