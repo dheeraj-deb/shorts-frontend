@@ -43,7 +43,7 @@ export const fetchUser = createAsyncThunk("user/get-user", async (userId, thunkA
 
 export const editProfile = createAsyncThunk("user/edit-profile", async (data, thunkAPI) => {
     try {
-       
+
         const { username, bio, profile } = data
         const response = await axiosReq.post("/user/edit", { username, bio, profile }, config);
         return response.data;
