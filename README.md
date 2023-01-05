@@ -33,7 +33,7 @@ To run this application, you have to set your own environmental variables. For s
 some variables have been hidden from view and used as environmental variables with the help of dotenv package. 
 Below are the variables that you need to set in order to run the application:
 
-+ Server
++ Server: https://github.com/dheeraj-deb/shorts-server
 
 PORT=5000
 
