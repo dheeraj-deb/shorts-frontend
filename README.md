@@ -1,70 +1,84 @@
-# Getting Started with Create React App
+# Shorts
+### MERN SOCIAL MEDIA WEB APPLICATION
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Table of contents
+---
++ Introduction
 
-## Available Scripts
++ Demo
 
-In the project directory, you can run:
++ Run 
 
-### `npm start`
++ Technology
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
++ Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## Introduction
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Shorts is a Social media platform where users can like
+comment and delete posts and update user Profiles.
 
-### `npm run build`
+## Demo
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The application is deployed to AWS and can be accessed through the following link:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## Run
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+To run this application, you have to set your own environmental variables. For security reasons, 
+some variables have been hidden from view and used as environmental variables with the help of dotenv package. 
+Below are the variables that you need to set in order to run the application:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
++ Server
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+PORT=5000
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+MONGO_DB='mongo db connection'
 
-## Learn More
+JWT_KEY="SECRET KEY"
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
++ Client
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+REACT_APP_PUBLIC_FOLDER="URL of the image folder"
 
-### Code Splitting
+After you've set these environmental variables in the .env file at the root of the project,
+and intsall node modules using npm install
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Now you can run npm start in the terminal and the application should work.
 
-### Analyzing the Bundle Size
+## Technology
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+This application is build using,
 
-### Making a Progressive Web App
++ Node.js
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
++ Express
 
-### Advanced Configuration
++ MongoDB
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
++ React
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Features
 
-### `npm run build` fails to minify
+## Users
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
++ User can create an account.
+
++ Users can view and interact posts only after
+authenticating with username and password.
+
++ User can comment,like and delete posts.
+
++ User can folllow and unfollow other users.
+
++ User can chat with other users.
+
++ User can view and edit user profile.
+
++ User will get notification when someone follows
